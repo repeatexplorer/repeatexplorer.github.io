@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Second page test"
-permalink: /re_annot/
+permalink: /re_annot2/
 ---
 
 # test page

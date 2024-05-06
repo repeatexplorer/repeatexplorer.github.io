@@ -1,0 +1,237 @@
+<meta charset="utf-8">
+<style>
+     h1 {
+         max-width: 700px;
+     }
+     h2 {
+         max-width: 700px;
+     }
+
+     p {
+         max-width: 700px;
+     }
+     ul {
+         max-width: 700px;
+     }
+     html, body {
+         height: 100%;
+     }
+     html {
+         display: table;
+         margin: auto;
+     }
+     body {
+         display: table-cell;
+         vertical-align: middle;
+     }
+     .frame {
+
+         width: 100%;
+         border: 0px;
+         white-space: nowrap;
+         text-align: center; margin: 1em 0;
+     }
+     .helper {
+         display: inline-block;
+         height: 100%;
+         vertical-align: middle;
+     }
+     img {
+         background: #FFFFFF;
+         vertical-align: middle;
+     }
+
+     table {
+         border-collapse: collapse;
+         width: 100%;
+     }
+     th.date {
+         width: 20%
+     }
+     th.subject {
+         width: 70%; /* Not necessary, since only 70% width remains */
+     }
+
+     tr {
+         border-bottom: 1px solid #ccc;
+     }
+
+     th {
+         text-align: left;    
+     }
+     th, td {
+         padding: 5px;
+     }
+ </style>
+<h1 class="unnumbered"
+id="genome-annotation-with-dante_ltr-and-tidecluster-on-repeatexplorer-galaxy-server">Genome
+annotation with DANTE_LTR and TideCluster on RepeatExplorer Galaxy
+server</h1>
+<p>This protocol describe step by step how to use DANTE, DANTE_LTR and
+TideCluster tools to annotated LTR-retrotransposons and tandem repeats
+in genome assemblies on the RepeatExplorer Galaxy server. DANTE_LTR was
+developed for annotation of LTR-RTs in Viridiplantae genomes.
+TideCluster can be used for annotation of tandem repeats in any genome
+assembly.</p>
+<h1 data-number="1" id="input-data"><span
+class="header-section-number">1</span> Input data</h1>
+<p>Upload your genome assembly in FASTA format to the Galaxy server. The
+genome assembly could be either plain FASTA file or compressed in GZIP
+format.</p>
+<h1 data-number="2" id="annotation-of-ltr-retrotransposons"><span
+class="header-section-number">2</span> Annotation of
+LTR-retrotransposons</h1>
+<h2 data-number="2.1" id="dante"><span
+class="header-section-number">2.1</span> Annotation of transposable
+elements protein domain with DANTE tools</h2>
+<ul>
+<li>Tool: <em>Domain based ANnotation of Transposable Elements -
+DANTE</em></li>
+<li>Input data
+<ul>
+<li><em>Sequence in fasta format</em>: uploaded genome assembly in FASTA
+format</li>
+</ul></li>
+<li>Parameters
+<ul>
+<li><em>Select REXdb database</em>: Viridiplantae_v3.0</li>
+<li>Other parameters: default</li>
+</ul></li>
+</ul>
+<p>This tool will annotate LTR-RT protein coding domains using
+similarity search against REXdb database. The output include following
+files: - GFF3 file with full DANTE output - Filtered GFF3 file with
+domains which passed the filtering criteria like minimum identity(35%),
+minimum similarity(45%), minimum alignment length(80% of domain length)
+and maximum number of interruptions (3 frameshifts or stop codons). -
+FASTA file with protein sequences of annotated domains based on filtered
+GFF3 file.</p>
+<h2 data-number="2.2" id="dante_ltr"><span
+class="header-section-number">2.2</span> Annotation of complete
+LTR-retrotransposons with DANTE_LTR</h2>
+<ul>
+<li>Tool: <em>DANTE_LTR retrotransposon identification</em></li>
+<li>Input data
+<ul>
+<li><em>GFF3 output from DANTE pipeline - full output</em> - Use DANTE
+ouput from previous step</li>
+<li><em>Reference sequence matching DANTE output</em> - Use genome
+assembly in FASTA format</li>
+</ul></li>
+<li>Parameters
+<ul>
+<li><em>Maximum number of missing protein domains to tolerate in full
+length retrotransposon</em>: 1</li>
+</ul></li>
+</ul>
+<p>This tool will identify complete LTR-retrotransposons based on the
+DANTE output. The output include following files: - GFF3 file with full
+DANTE_LTR output - Statistics of identified LTR-retrotransposons -
+Graphical report in HTML format</p>
+<h2 data-number="2.3" id="library"><span
+class="header-section-number">2.3</span> Using complete
+LTR-retrotransposons GFF3 to create library of similarity based
+annotation</h2>
+<ul>
+<li>Tool: <em>Create representative library from DANTE_LTR
+output</em></li>
+<li>Input data
+<ul>
+<li><em>GFF3 output from DANTE_LTR pipeline</em> - Use DANTE_LTR ouput
+from previous step</li>
+<li><em>Reference sequence matching DANTE_LTR output</em> - Use genome
+assembly in FASTA format</li>
+</ul></li>
+</ul>
+<p>This tool will create a library of representative
+LTR-retrotransposons based on the DANTE_LTR output. This library is in
+FASTA format suitable for similarity based annotation using tools like
+RepeatMasker. This will allow to annotate LTR-RTs which are note
+complete (fragmented elements, non-autonomous elements, solo-LTR) and
+could not be identified in previous step.</p>
+<h2 data-number="2.4" id="repeatmasker"><span
+class="header-section-number">2.4</span> Similarity based annotation of
+LTR-retrotransposons with RepeatMasker</h2>
+<ul>
+<li>Tool: <em>Library Based Assembly Annotation</em></li>
+<li>Input data
+<ul>
+<li><em>Genome assembly to annotate</em>: uploaded genome assembly in
+FASTA format</li>
+<li>Library of Repetitive Sequences*: library of representative
+LTR-retrotransposons created in previous step</li>
+</ul></li>
+<li>Parameters: use default parameters</li>
+</ul>
+<p>This tool will annotate LTR-retrotransposons in genome assembly using
+RepeatMasker. Resulting annotation is provided in RepeatMasker format
+(.out) and as GFF3 format. Overlapping annotations and conflicts are
+resolved based on classification hierarchy.</p>
+<h1 data-number="3" id="annotation-of-tandem-repeats"><span
+class="header-section-number">3</span> Annotation of Tandem Repeats</h1>
+<h2 data-number="3.1" id="sec:tidecluster"><span
+class="header-section-number">3.1</span> Annotation of Tandem Repeats
+with TideCluster</h2>
+<ul>
+<li>Tool: <em>TideCluster</em></li>
+<li>Input data
+<ul>
+<li><em>Reference fasta</em> - uploaded genome assembly in FASTA
+format</li>
+<li><em>Library</em> - optional library in FASTA format</li>
+</ul></li>
+<li>Parameters: use default parameters. With default setting TideCluster
+report satellites with monomer length between 40-3000nt. Consensus
+sequence is calculated for tandem repeats which occupies at leat 50000
+nt in the assembly.</li>
+</ul>
+<p>Output consist of several files: - GFF3 file with annotation of
+tandem repeats - HTML reports with detailed statistics, consensus, and
+graphical representation of tandem repeats - FASTA file with consensus
+sequences of tandem repeats, this file can be used for similarity based
+annotation of tandem repeats in genome in next step - Archive with all
+output files</p>
+<h2 data-number="3.2" id="sec:library_based"><span
+class="header-section-number">3.2</span> Annotation of Tandem Repeats in
+Genome Assembly using library based approach</h2>
+<ul>
+<li>Tool: <em>TideCluster - Annotate Genome</em></li>
+<li>Input data
+<ul>
+<li><em>Genome assembly to annotate</em>: uploaded genome assembly in
+FASTA format</li>
+<li><em>Library of tandem repeats</em>: library of tandem repeats
+created in previous step</li>
+</ul></li>
+</ul>
+<p>This is a tool for re-annotating tandem repeats using a
+similarity-based approach. This tool runs RepeatMasker using the tandem
+repeat library generated by TAREAN in TideCluster. Resulting
+RepeatMasker output is processed to retain only high-quality tandem
+repeat hits. Overlapping tandem repeat annotation are merged, and
+regions shorter than twice the monomer length are excluded from the
+output. Re-annotation of tandem repeats using similarity-based approach
+can fill in gaps in annotation provided by TideCluster</p>
+<h1 data-number="4"
+id="using-annotated-tandem-repeats-to-improve-ltr-rt-annotation"><span
+class="header-section-number">4</span> Using Annotated tandem repeats to
+improve LTR-RT annotation</h1>
+<p>This step is recommended as some tandem repeats in the genome share
+similarity with LTR-RTs and could be misannotated as LTR-RTs when
+library based approach is used. It is recommended to remove such regions
+from LTR-RT annotation by subtracking tandem repeat annotation
+track.</p>
+<h2 data-number="4.1"
+id="merging-two-tandem-repeat-annotation-tracks"><span
+class="header-section-number">4.1</span> Merging two Tandem Repeat
+annotation tracks</h2>
+<ul>
+<li>Tool: Concatenate datasets tail-to-head (cat)</li>
+<li>Input data
+<ul>
+<li><em>First dataset</em>: TideCluster GFF3 file with tandem repeat
+annotation from  3.1</li>
+<li><em>Second dataset</em>: GFF3 file with tandem repeat annotation
+from  3.2</li>
+</ul></li>
+</ul>

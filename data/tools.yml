@@ -34,6 +34,17 @@ tarean:
   cite: [tarean2017]
   status: active
 
+chipseq_mapper:
+  name: ChIP-Seq Mapper
+  category: reads
+  summary: Compares ChIP and input read mapping across repeat clusters to find associated repeats
+  repo: https://github.com/kavonrtep/galaxy_packages
+  galaxy: ["chipseq_ratio_analysis"]
+  inputs: [sequencing reads]
+  depends_on: [repeatexplorer2]
+  protocols: []
+  cite: []
+  status: maintained
 
 dante:
   name: DANTE

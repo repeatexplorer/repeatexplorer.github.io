@@ -1,0 +1,32 @@
+{{ define "main" }}
+  <article class="tool-index">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    {{ $categories := slice
+        (dict "key" "reads"    "title" "Reads-based" "blurb" "Analyse unassembled sequencing reads, typically low-coverage whole-genome shotgun data.")
+        (dict "key" "assembly" "title" "Assembly-based" "blurb" "Annotate repeats in an assembled genome.")
+        (dict "key" "database" "title" "Databases" "blurb" "Reference data the tools depend on.")
+    }}
+    {{ range $categories }}
+      {{ $cat := .key }}
+      <section class="tool-category">
+        <h2>{{ .title }}</h2>
+        <p>{{ .blurb }}</p>
+        <ul class="cards">
+          {{ range $key, $tool := hugo.Data.tools }}
+            {{ if eq $tool.category $cat }}
+              <li>
+                {{ with site.GetPage (printf "/tools/%s" (replace $key "_" "-")) }}
+                  <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
+                {{ else }}
+                  <h3>{{ $tool.name }}</h3>
+                {{ end }}
+                <p>{{ $tool.summary }}</p>
+              </li>
+            {{ end }}
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
+  </article>
+{{ end }}

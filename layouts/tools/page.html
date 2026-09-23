@@ -1,0 +1,67 @@
+{{ define "main" }}
+  {{ $key := .Params.tool }}
+  {{ $tool := index hugo.Data.tools $key }}
+  {{ if not $tool }}
+    {{ errorf "page %s has tool: %q, which is not a key in data/tools.yml" .Path $key }}
+  {{ end }}
+  <article class="tool">
+    <header>
+      <h1>{{ $tool.name }}</h1>
+      <p class="summary">{{ $tool.summary }}</p>
+      {{ if ne $tool.status "active" }}
+        <p class="status status-{{ $tool.status }}">Status: {{ $tool.status }}</p>
+      {{ end }}
+    </header>
+
+    <div class="tool-body">
+      {{ .Content }}
+    </div>
+
+    <aside class="tool-box" aria-label="Links for {{ $tool.name }}">
+      <h2>{{ $tool.name }} at a glance</h2>
+      <dl>
+        <dt>Input</dt>
+        <dd>{{ delimit $tool.inputs ", " }}</dd>
+
+        {{ with $tool.galaxy }}
+          <dt>Run it on Galaxy</dt>
+          <dd><a href="{{ site.Params.galaxy_url }}">RepeatExplorer Galaxy server</a></dd>
+        {{ end }}
+
+        {{ with $tool.protocols }}
+          <dt>Protocol{{ if gt (len .) 1 }}s{{ end }}</dt>
+          <dd>
+            <ul>
+              {{ range . }}
+                {{ $slug := . }}
+                {{ with site.GetPage (printf "/protocols/%s" $slug) }}
+                  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                {{ else }}
+                  {{ errorf "tool %q lists protocol %q, which has no page in content/protocols/" $key $slug }}
+                {{ end }}
+              {{ end }}
+            </ul>
+          </dd>
+        {{ end }}
+
+        <dt>Documentation</dt>
+        <dd><a href="{{ $tool.repo }}">Repository and README</a></dd>
+
+        {{ with $tool.depends_on }}
+          <dt>Used together with</dt>
+          <dd>
+            <ul>
+              {{ range . }}
+                {{ $dep := index hugo.Data.tools . }}
+                {{ if not $dep }}{{ errorf "tool %q depends_on %q, which is not in data/tools.yml" $key . }}{{ end }}
+                <li>{{ $dep.name }}</li>
+              {{ end }}
+            </ul>
+          </dd>
+        {{ end }}
+      </dl>
+    </aside>
+
+    {{ partial "citation.html" . }}
+  </article>
+{{ end }}

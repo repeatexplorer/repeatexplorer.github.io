@@ -1,0 +1,12 @@
+# Build and check environment for the repeatexplorer.org static site.
+# Create with:  conda env create -f environment.yml
+# Update with:  conda env update -f environment.yml --prune
+name: repeatexplorer-site
+channels:
+  - conda-forge
+dependencies:
+  - hugo=0.166.0          # site generator; keep in step with .github/workflows
+  - python=3.12
+  - pyyaml=6.0.2          # data file parsing in scripts/
+  - jsonschema=4.23.0     # schema validation of data/*.yml and front matter
+  - lychee=0.15.1         # link checker used by `make check`

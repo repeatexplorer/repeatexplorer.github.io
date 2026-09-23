@@ -1,0 +1,18 @@
+{{/* Staleness notice for protocols, driven by last_tested in front matter. */}}
+{{ with .Params.last_tested }}
+  {{ $months := div (sub now.Unix (time.AsTime .).Unix) 2592000 }}
+  {{ if gt $months site.Params.protocol_stale_months }}
+    <aside class="notice notice-stale">
+      <p>
+        Last tested {{ time.Format "January 2006" . }}{{ with $.Params.galaxy_version }},
+        against Galaxy tool version {{ . }}{{ end }}. Tool versions have changed since;
+        steps and screenshots may no longer match.
+      </p>
+    </aside>
+  {{ end }}
+{{ end }}
+{{ with .Params.archived }}
+  <aside class="notice notice-archived">
+    <p>{{ . }}</p>
+  </aside>
+{{ end }}

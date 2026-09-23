@@ -1,0 +1,79 @@
+# Canonical tool metadata. Pages reference entries by key; never repeat these
+# facts in page text. Keys match content/tools/<key with _ as -> page bundles.
+#
+# category : reads | assembly | database
+# status   : active | maintained | legacy
+# galaxy   : tool ids on the RepeatExplorer Galaxy server; empty if not provided
+# cite     : keys into data/publications.yml; empty if unpublished
+
+repeatexplorer2:
+  name: RepeatExplorer2
+  category: reads
+  summary: Identifies and quantifies repetitive elements from low-coverage sequencing reads by graph-based clustering
+  repo: https://github.com/repeatexplorer/repex_tarean
+  galaxy: ["repeatexplorer2"]
+  inputs: [sequencing reads]
+  depends_on: [rexdb]
+  protocols: []
+  cite: []
+  status: active
+
+tarean:
+  name: TAREAN
+  category: reads
+  summary: Detects satellite DNA and reconstructs monomer sequences from read clusters
+  repo: https://github.com/repeatexplorer/repex_tarean
+  galaxy: ["tarean"]
+  inputs: [sequencing reads]
+  depends_on: [repeatexplorer2]
+  protocols: []
+  cite: []
+  status: active
+
+dante:
+  name: DANTE
+  category: assembly
+  summary: Finds and classifies transposable element protein domains in nucleotide sequences
+  repo: https://github.com/kavonrtep/dante
+  galaxy: ["dante"]
+  inputs: [genome assembly, sequencing reads]
+  depends_on: [rexdb]
+  protocols: []
+  cite: []
+  status: active
+
+dante_ltr:
+  name: DANTE_LTR
+  category: assembly
+  summary: Identifies complete LTR retrotransposons in a genome assembly and classifies them into lineages
+  repo: https://github.com/kavonrtep/dante_ltr
+  galaxy: ["dante_ltr"]
+  inputs: [genome assembly]
+  depends_on: [dante, rexdb]
+  protocols: []
+  cite: []
+  status: active
+
+tidecluster:
+  name: TideCluster
+  category: assembly
+  summary: Finds and annotates tandem repeats in genome assemblies, grouping them into families
+  repo: https://github.com/kavonrtep/TideCluster
+  galaxy: ["tidecluster"]
+  inputs: [genome assembly]
+  depends_on: []
+  protocols: []
+  cite: []
+  status: active
+
+rexdb:
+  name: REXdb
+  category: database
+  summary: Reference database of transposable element protein domains used for classification
+  repo: https://github.com/repeatexplorer/rexdb
+  galaxy: []
+  inputs: []
+  depends_on: []
+  protocols: []
+  cite: []
+  status: active

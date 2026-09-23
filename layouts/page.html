@@ -1,0 +1,8 @@
+{{ define "main" }}
+  <article class="page">
+    <h1>{{ .Title }}</h1>
+    {{ partial "notices.html" . }}
+    {{ .Content }}
+    {{ partial "citation.html" . }}
+  </article>
+{{ end }}

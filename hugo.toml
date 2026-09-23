@@ -1,0 +1,56 @@
+baseURL = "https://repeatexplorer.org/"
+locale = "en-GB"
+title = "RepeatExplorer"
+enableRobotsTXT = true
+
+# Fail the build on anything that would silently produce a broken page.
+disableKinds = ["taxonomy", "term", "rss"]
+
+[params]
+  description = "Tools for discovery and annotation of repetitive DNA in plant genomes"
+  galaxy_url = "https://repeatexplorer-elixir.cerit-sc.cz/"
+  contact_email = "repeatexplorer@umbr.cas.cz"
+  institute = "Institute of Plant Molecular Biology, Biology Centre CAS"
+  # Protocols not re-tested within this many months show a staleness notice.
+  protocol_stale_months = 18
+
+[menus]
+  [[menus.main]]
+    name = "Tools"
+    pageRef = "/tools"
+    weight = 10
+  [[menus.main]]
+    name = "Protocols"
+    pageRef = "/protocols"
+    weight = 20
+  [[menus.main]]
+    name = "Galaxy server"
+    pageRef = "/galaxy-server"
+    weight = 30
+  [[menus.main]]
+    name = "Workshops"
+    pageRef = "/workshops"
+    weight = 40
+  [[menus.main]]
+    name = "Publications"
+    pageRef = "/publications"
+    weight = 50
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 60
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = false        # no raw HTML in content; keeps agent edits reviewable
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[build]
+  writeStats = true
+
+[outputs]
+  home = ["html"]
+  section = ["html"]
+  page = ["html"]

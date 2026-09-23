@@ -1,0 +1,3 @@
+# Citations referenced by data/tools.yml (cite:) and page front matter.
+# Every field must come from the DOI record or the user, never from memory.
+# Entries are added in phase 2; tools.yml `cite` lists are empty until then.

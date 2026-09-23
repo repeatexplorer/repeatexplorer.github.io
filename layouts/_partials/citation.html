@@ -1,0 +1,24 @@
+{{/* Renders citations from data/publications.yml for keys in the page's `cite`. */}}
+{{ $keys := .Params.cite }}
+{{ with .Params.tool }}
+  {{ with index hugo.Data.tools . }}{{ $keys = .cite }}{{ end }}
+{{ end }}
+{{ with $keys }}
+  <section class="citation">
+    <h2>How to cite</h2>
+    <ul>
+      {{ range . }}
+        {{ with index hugo.Data.publications . }}
+          <li>
+            {{ delimit .authors ", " }} ({{ .year }})
+            {{ .title }}.
+            <em>{{ .journal }}</em>{{ with .volume }} {{ . }}{{ end }}{{ with .pages }}: {{ . }}{{ end }}.
+            <a href="https://doi.org/{{ .doi }}">doi:{{ .doi }}</a>
+          </li>
+        {{ else }}
+          {{ errorf "citation key %q is not in data/publications.yml (page %s)" . $.Path }}
+        {{ end }}
+      {{ end }}
+    </ul>
+  </section>
+{{ end }}

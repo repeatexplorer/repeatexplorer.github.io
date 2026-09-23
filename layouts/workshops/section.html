@@ -1,0 +1,16 @@
+{{ define "main" }}
+  <article class="workshop-index">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    {{ $years := .Pages.ByParam "year" | collections.Reverse }}
+    <ul class="workshop-list">
+      {{ range $years }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ with .Params.dates }}<span class="dates">{{ . }}</span>{{ end }}
+          {{ with .Params.venue }}<span class="venue">{{ . }}</span>{{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  </article>
+{{ end }}

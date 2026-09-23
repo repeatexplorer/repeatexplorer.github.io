@@ -1,0 +1,21 @@
+{{/*
+  Layer 2 of the redirect scheme: resolves old WordPress query-string URLs.
+
+  A static host ignores the query string, so http://repeatexplorer.org/?page_id=179
+  arrives here as a request for "/". This reads the query, looks it up in the
+  generated map and replaces the location. Included on the home page (where such
+  URLs land) and on 404. Where server 301s are configured this never fires.
+*/}}
+{{ with resources.Get "redirects.json" }}
+  <script>
+  (function () {
+    var q = window.location.search;
+    if (!q || q.length < 2) return;
+    var m = q.substring(1).match(/^(page_id|p)=(\d+)/);
+    if (!m) return;
+    var map = {{ .Content | safeJS }};
+    var target = map[m[1] + "=" + m[2]];
+    if (target) window.location.replace(target + window.location.hash);
+  })();
+  </script>
+{{ end }}

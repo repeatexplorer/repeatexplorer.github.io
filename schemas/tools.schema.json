@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "data/tools.yml",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "required": ["name", "category", "summary", "repo", "galaxy", "inputs",
+                 "depends_on", "protocols", "cite", "status"],
+    "additionalProperties": false,
+    "properties": {
+      "name":       { "type": "string", "minLength": 1 },
+      "category":   { "enum": ["reads", "assembly", "database"] },
+      "summary":    { "type": "string", "minLength": 20, "maxLength": 200 },
+      "repo":       { "type": "string", "format": "uri", "pattern": "^https://" },
+      "galaxy":     { "type": "array", "items": { "type": "string" } },
+      "inputs":     { "type": "array", "items": { "type": "string" } },
+      "depends_on": { "type": "array", "items": { "type": "string" } },
+      "protocols":  { "type": "array", "items": { "type": "string" } },
+      "cite":       { "type": "array", "items": { "type": "string" } },
+      "status":     { "enum": ["active", "maintained", "legacy"] }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{{ define "main" }}
+  <article class="workshop">
+    <header>
+      <h1>{{ .Title }}</h1>
+      <dl class="workshop-facts">
+        {{ with .Params.dates }}<dt>Dates</dt><dd>{{ . }}</dd>{{ end }}
+        {{ with .Params.venue }}<dt>Venue</dt><dd>{{ . }}</dd>{{ end }}
+        {{ with .Params.lecturers }}<dt>Lecturers</dt><dd>{{ delimit . ", " }}</dd>{{ end }}
+      </dl>
+    </header>
+
+    {{ .Content }}
+
+    {{ with .Params.program }}
+      <section class="programme">
+        <h2>Programme</h2>
+        {{ range . }}
+          <h3>{{ .day }}</h3>
+          <ul class="sessions">
+            {{ range .sessions }}
+              <li>
+                {{ with .time }}<span class="time">{{ . }}</span>{{ end }}
+                <span class="session-title">{{ .title }}</span>
+                {{ with .speaker }}<span class="speaker">{{ . }}</span>{{ end }}
+                {{ with .slides }}<a class="slides" href="{{ . }}">slides</a>{{ end }}
+              </li>
+            {{ end }}
+          </ul>
+        {{ end }}
+      </section>
+    {{ end }}
+
+    {{ with .Params.materials_url }}
+      <section class="materials">
+        <h2>Materials</h2>
+        <p>Training materials for this workshop are in the <a href="{{ . }}">workshop repository</a>.</p>
+      </section>
+    {{ end }}
+
+    {{ with .Pages }}
+      <section class="subpages">
+        <h2>More about this workshop</h2>
+        <ul>{{ range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}</ul>
+      </section>
+    {{ end }}
+  </article>
+{{ end }}

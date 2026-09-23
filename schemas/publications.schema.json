@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "data/publications.yml",
+  "type": ["object", "null"],
+  "additionalProperties": {
+    "type": "object",
+    "required": ["authors", "year", "title", "journal", "doi"],
+    "additionalProperties": false,
+    "properties": {
+      "authors": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+      "year":    { "type": "integer", "minimum": 1990, "maximum": 2100 },
+      "title":   { "type": "string", "minLength": 5 },
+      "journal": { "type": "string", "minLength": 2 },
+      "doi":     { "type": "string", "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Za-z0-9]+$" },
+      "volume":  { "type": ["string", "integer"] },
+      "pages":   { "type": "string" },
+      "note":    { "type": "string" }
+    }
+  }
+}

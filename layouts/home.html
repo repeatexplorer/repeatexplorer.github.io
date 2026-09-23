@@ -3,8 +3,14 @@
 
   <div class="hero">
     <div class="bar">
-      <h1>Every repeat class, <span class="accent">one annotation</span></h1>
-      <p class="lead">{{ .Params.lead | default "Each tool annotates a different part of the genome. The badges below mark which, and follow the tools through the site." }}</p>
+      {{/* Hero text lives in content/_index.md front matter, not here: it is
+           content, and a wording change should not be a template change. */}}
+      {{ with .Params.headline }}
+        <h1>{{ . }}{{ with $.Params.accent }} <span class="accent">{{ . }}</span>{{ end }}</h1>
+      {{ else }}
+        {{ errorf "content/_index.md needs a `headline` in front matter" }}
+      {{ end }}
+      {{ with .Params.lead }}<p class="lead">{{ . }}</p>{{ end }}
       {{ partial "track.html" . }}
       <p class="badges legend">
         {{/* `where` matches nothing on a data map in Hugo 0.166, though `sort`

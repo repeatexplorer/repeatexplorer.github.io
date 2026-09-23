@@ -1,55 +1,83 @@
 # Canonical tool metadata. Pages reference entries by key; never repeat these
-# facts in page text. Keys match content/tools/<key with _ as -> page bundles.
+# facts in page text. Page bundles are content/tools/<key with _ as ->/.
 #
 # category : reads | assembly | database
 # status   : active | maintained | legacy
-# galaxy   : tool ids on the RepeatExplorer Galaxy server; empty if not provided
-# cite     : keys into data/publications.yml; empty if unpublished
+# galaxy   : non-empty when the tool is offered on the RepeatExplorer Galaxy
+#            server. Source: the `galaxy` tag in the toolkit table at
+#            github.com/kavonrtep, and kavonrtep/galaxy_packages, which holds
+#            the Tool Shed wrappers.
+# cite     : keys into data/publications.yml. Where a tool has both a paper and
+#            a Zenodo record, list both.
 
 repeatexplorer2:
   name: RepeatExplorer2
   category: reads
-  summary: Identifies and quantifies repetitive elements from low-coverage sequencing reads by graph-based clustering
-  repo: https://github.com/repeatexplorer/repex_tarean
+  summary: Graph-based identification and quantification of repeats from unassembled sequencing reads
+  repo: https://github.com/kavonrtep/repex_tarean
   galaxy: ["repeatexplorer2"]
   inputs: [sequencing reads]
   depends_on: [rexdb]
   protocols: []
-  cite: []
+  cite: [repeatexplorer2013, natprotocols2020]
   status: active
 
 tarean:
   name: TAREAN
   category: reads
-  summary: Detects satellite DNA and reconstructs monomer sequences from read clusters
-  repo: https://github.com/repeatexplorer/repex_tarean
+  summary: Reconstructs satellite repeat consensus sequences from RepeatExplorer2 read clusters
+  repo: https://github.com/kavonrtep/repex_tarean
   galaxy: ["tarean"]
   inputs: [sequencing reads]
   depends_on: [repeatexplorer2]
   protocols: []
-  cite: []
+  cite: [tarean2017]
   status: active
+
+chipseq_mapper:
+  name: ChIP-Seq Mapper
+  category: reads
+  summary: Compares ChIP and input read mapping across repeat clusters to find associated repeats
+  repo: https://github.com/kavonrtep/galaxy_packages
+  galaxy: ["chipseq_ratio_analysis"]
+  inputs: [sequencing reads]
+  depends_on: [repeatexplorer2]
+  protocols: []
+  cite: []
+  status: maintained
 
 dante:
   name: DANTE
   category: assembly
-  summary: Finds and classifies transposable element protein domains in nucleotide sequences
+  summary: Domain-based annotation of transposable elements using the REXdb protein database
   repo: https://github.com/kavonrtep/dante
   galaxy: ["dante"]
   inputs: [genome assembly, sequencing reads]
   depends_on: [rexdb]
   protocols: []
-  cite: []
+  cite: [dante2024, rexdb2019]
   status: active
 
 dante_ltr:
   name: DANTE_LTR
   category: assembly
-  summary: Identifies complete LTR retrotransposons in a genome assembly and classifies them into lineages
+  summary: Identifies complete LTR retrotransposons from DANTE domain hits and classifies them into lineages
   repo: https://github.com/kavonrtep/dante_ltr
   galaxy: ["dante_ltr"]
   inputs: [genome assembly]
   depends_on: [dante, rexdb]
+  protocols: []
+  cite: [dante2024]
+  status: active
+
+dante_tir:
+  name: DANTE_TIR
+  category: assembly
+  summary: Finds DNA transposons with terminal inverted repeats, seeded by transposase domains
+  repo: https://github.com/kavonrtep/dante_tir
+  galaxy: ["dante_tir"]
+  inputs: [genome assembly]
+  depends_on: [dante]
   protocols: []
   cite: []
   status: active
@@ -57,11 +85,23 @@ dante_ltr:
 tidecluster:
   name: TideCluster
   category: assembly
-  summary: Finds and annotates tandem repeats in genome assemblies, grouping them into families
+  summary: Detects tandem repeats in genome assemblies and clusters them into families
   repo: https://github.com/kavonrtep/TideCluster
   galaxy: ["tidecluster"]
   inputs: [genome assembly]
-  depends_on: []
+  depends_on: [tarean]
+  protocols: []
+  cite: [tidehunter2019, tarean2017]
+  status: active
+
+carp:
+  name: CARP
+  category: assembly
+  summary: Integrates the annotation tools into a single non-overlapping repeat annotation of a genome
+  repo: https://github.com/kavonrtep/CARP
+  galaxy: ["carp"]
+  inputs: [genome assembly]
+  depends_on: [dante, dante_ltr, dante_tir, tidecluster]
   protocols: []
   cite: []
   status: active
@@ -69,11 +109,11 @@ tidecluster:
 rexdb:
   name: REXdb
   category: database
-  summary: Reference database of transposable element protein domains used for classification
+  summary: Reference database of transposable element protein domains, used for classification
   repo: https://github.com/repeatexplorer/rexdb
   galaxy: []
   inputs: []
   depends_on: []
   protocols: []
-  cite: []
+  cite: [rexdb2019, rexdb_zenodo]
   status: active

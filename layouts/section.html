@@ -1,6 +1,11 @@
 {{ define "main" }}
   <article class="section-index">
     <h1>{{ .Title }}</h1>
+    {{ if eq .Section "galaxy-server" }}
+      <p class="galaxy-cta">
+        <a class="button" href="{{ site.Params.galaxy_url }}">Open the RepeatExplorer Galaxy server</a>
+      </p>
+    {{ end }}
     {{ .Content }}
     {{ with .Pages }}
       <ul class="page-list">

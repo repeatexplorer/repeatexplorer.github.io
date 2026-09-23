@@ -197,3 +197,24 @@ img { max-width: 100%; height: auto; }
 
 table { border-collapse: collapse; }
 th, td { padding: 0.35rem 0.75rem; border-bottom: 1px solid var(--rule); text-align: left; }
+
+/* ---------- call to action ---------- */
+
+.galaxy-cta { margin: 1.25rem 0 1.75rem; }
+.button {
+  display: inline-block;
+  padding: 0.6rem 1.1rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.button:hover, .button:focus { background: #226733; text-decoration: none; }
+
+.slide-list { padding: 0; list-style: none; }
+.slide-list > li { padding: 0.4rem 0; border-bottom: 1px solid var(--rule); }
+.filemeta { color: var(--muted); font-size: 0.85rem; margin-left: 0.5rem; }
+.slides-note { color: var(--muted); font-size: 0.9rem; font-style: italic; }
+.slides-count { color: var(--muted); font-size: 0.9rem; margin-left: 0.75rem; }
+.no-upcoming { color: var(--muted); }

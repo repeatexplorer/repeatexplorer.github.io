@@ -1,3 +1,89 @@
-# Citations referenced by data/tools.yml (cite:) and page front matter.
-# Every field must come from the DOI record or the user, never from memory.
-# Entries are added in phase 2; tools.yml `cite` lists are empty until then.
+# Citations rendered by layouts/_partials/citation.html.
+# Every field comes from the DOI record (CSL JSON), not from memory.
+# Regenerate a record rather than editing fields by hand.
+
+repeatexplorer2013:
+  authors:
+    - Novák P.
+    - Neumann P.
+    - Pech J.
+    - Steinhaisl J.
+    - Macas J.
+  year: 2013
+  title: "RepeatExplorer: a Galaxy-based web server for genome-wide characterization of eukaryotic repetitive elements from next-generation sequence reads"
+  journal: "Bioinformatics"
+  volume: "29"
+  pages: "792-793"
+  doi: 10.1093/bioinformatics/btt054
+
+tarean2017:
+  authors:
+    - Novák P.
+    - Ávila Robledillo L.
+    - Koblížková A.
+    - Vrbová I.
+    - Neumann P.
+    - Macas J.
+  year: 2017
+  title: "TAREAN: a computational tool for identification and characterization of satellite DNA from unassembled short reads"
+  journal: "Nucleic Acids Research"
+  volume: "45"
+  pages: "e111-e111"
+  doi: 10.1093/nar/gkx257
+
+rexdb2019:
+  authors:
+    - Neumann P.
+    - Novák P.
+    - Hoštáková N.
+    - Macas J.
+  year: 2019
+  title: "Systematic survey of plant LTR-retrotransposons elucidates phylogenetic relationships of their polyprotein domains and provides a reference for element classification"
+  journal: "Mobile DNA"
+  volume: "10"
+  doi: 10.1186/s13100-018-0144-1
+
+dante2024:
+  authors:
+    - Novák P.
+    - Hoštáková N.
+    - Neumann P.
+    - Macas J.
+  year: 2024
+  title: "DANTE and DANTE_LTR: lineage-centric annotation pipelines for long terminal repeat retrotransposons in plant genomes"
+  journal: "NAR Genomics and Bioinformatics"
+  volume: "6"
+  doi: 10.1093/nargab/lqae113
+
+tidehunter2019:
+  authors:
+    - Gao Y.
+    - Liu B.
+    - Wang Y.
+    - Xing Y.
+  year: 2019
+  title: "TideHunter: efficient and sensitive tandem repeat detection from noisy long-reads using seed-and-chain"
+  journal: "Bioinformatics"
+  volume: "35"
+  pages: "i200-i207"
+  doi: 10.1093/bioinformatics/btz376
+
+natprotocols2020:
+  authors:
+    - Novák P.
+    - Neumann P.
+    - Macas J.
+  year: 2020
+  title: "Global analysis of repetitive DNA from unassembled sequence reads using RepeatExplorer2"
+  journal: "Nature Protocols"
+  volume: "15"
+  pages: "3745-3776"
+  doi: 10.1038/s41596-020-0400-y
+
+rexdb_zenodo:
+  authors:
+    - Petr Novak
+  year: 2023
+  title: "repeatexplorer/rexdb: v1.0"
+  journal: "Zenodo"
+  doi: 10.5281/zenodo.10160279

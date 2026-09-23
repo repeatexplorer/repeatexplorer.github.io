@@ -59,6 +59,11 @@ def main():
         for c in tool.get('cite', []):
             if c not in pubs:
                 err('data/tools.yml', f'{key}.cite: {c!r} is not in publications.yml')
+        # the index lists tool pages, so a tool without one is invisible
+        slug = key.replace('_', '-')
+        if not (ROOT / 'content' / 'tools' / slug / 'index.md').exists():
+            err('data/tools.yml', f'{key}: no content/tools/{slug}/index.md, so the '
+                                  f'tool will not appear in the tools index')
         for slug in tool.get('protocols', []):
             if not (ROOT / 'content' / 'protocols' / slug).exists():
                 err('data/tools.yml', f'{key}.protocols: no content/protocols/{slug}/')

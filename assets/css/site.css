@@ -218,3 +218,4 @@ th, td { padding: 0.35rem 0.75rem; border-bottom: 1px solid var(--rule); text-al
 .slides-note { color: var(--muted); font-size: 0.9rem; font-style: italic; }
 .slides-count { color: var(--muted); font-size: 0.9rem; margin-left: 0.75rem; }
 .no-upcoming { color: var(--muted); }
+.on-galaxy { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-top: 0.4rem; }

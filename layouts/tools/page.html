@@ -25,7 +25,18 @@
 
         {{ with $tool.galaxy }}
           <dt>Run it on Galaxy</dt>
-          <dd><a href="{{ site.Params.galaxy_url }}">RepeatExplorer Galaxy server</a></dd>
+          <dd>
+            <a href="{{ site.Params.galaxy_url }}">RepeatExplorer Galaxy server</a>,
+            in a browser, no installation needed
+          </dd>
+        {{ end }}
+
+        {{ if $tool.cli }}
+          <dt>Run it on the command line</dt>
+          <dd>
+            Also available as a command-line program.
+            See the <a href="{{ $tool.repo }}">repository</a> for installation and usage.
+          </dd>
         {{ end }}
 
         {{ with $tool.protocols }}

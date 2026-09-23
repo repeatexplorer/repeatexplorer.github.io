@@ -3,6 +3,9 @@
 #
 # category : reads | assembly | database
 # status   : active | maintained | legacy
+# cli      : true when the tool runs as a command-line program on its own. The
+#            page states that it does and links the repository; installation and
+#            usage stay in the README.
 # galaxy   : non-empty when the tool is offered on the RepeatExplorer Galaxy
 #            server. Source: the `galaxy` tag in the toolkit table at
 #            github.com/kavonrtep, and kavonrtep/galaxy_packages, which holds
@@ -16,6 +19,7 @@ repeatexplorer2:
   summary: Graph-based identification and quantification of repeats from unassembled sequencing reads
   repo: https://github.com/kavonrtep/repex_tarean
   galaxy: ["repeatexplorer2"]
+  cli: true
   inputs: [sequencing reads]
   depends_on: [rexdb]
   protocols: []
@@ -28,6 +32,7 @@ tarean:
   summary: Reconstructs satellite repeat consensus sequences from RepeatExplorer2 read clusters
   repo: https://github.com/kavonrtep/repex_tarean
   galaxy: ["tarean"]
+  cli: true
   inputs: [sequencing reads]
   depends_on: [repeatexplorer2]
   protocols: []
@@ -40,6 +45,7 @@ chipseq_mapper:
   summary: Compares ChIP and input read mapping across repeat clusters to find associated repeats
   repo: https://github.com/kavonrtep/galaxy_packages
   galaxy: ["chipseq_ratio_analysis"]
+  cli: false
   inputs: [sequencing reads]
   depends_on: [repeatexplorer2]
   protocols: []
@@ -52,6 +58,7 @@ dante:
   summary: Domain-based annotation of transposable elements using the REXdb protein database
   repo: https://github.com/kavonrtep/dante
   galaxy: ["dante"]
+  cli: true
   inputs: [genome assembly, sequencing reads]
   depends_on: [rexdb]
   protocols: []
@@ -64,6 +71,7 @@ dante_ltr:
   summary: Identifies complete LTR retrotransposons from DANTE domain hits and classifies them into lineages
   repo: https://github.com/kavonrtep/dante_ltr
   galaxy: ["dante_ltr"]
+  cli: true
   inputs: [genome assembly]
   depends_on: [dante, rexdb]
   protocols: []
@@ -76,6 +84,7 @@ dante_tir:
   summary: Finds DNA transposons with terminal inverted repeats, seeded by transposase domains
   repo: https://github.com/kavonrtep/dante_tir
   galaxy: ["dante_tir"]
+  cli: true
   inputs: [genome assembly]
   depends_on: [dante]
   protocols: []
@@ -88,6 +97,7 @@ tidecluster:
   summary: Detects tandem repeats in genome assemblies and clusters them into families
   repo: https://github.com/kavonrtep/TideCluster
   galaxy: ["tidecluster"]
+  cli: true
   inputs: [genome assembly]
   depends_on: [tarean]
   protocols: []
@@ -100,6 +110,7 @@ carp:
   summary: Integrates the annotation tools into a single non-overlapping repeat annotation of a genome
   repo: https://github.com/kavonrtep/CARP
   galaxy: ["carp"]
+  cli: true
   inputs: [genome assembly]
   depends_on: [dante, dante_ltr, dante_tir, tidecluster]
   protocols: []
@@ -112,6 +123,7 @@ rexdb:
   summary: Reference database of transposable element protein domains, used for classification
   repo: https://github.com/repeatexplorer/rexdb
   galaxy: []
+  cli: false
   inputs: []
   depends_on: []
   protocols: []

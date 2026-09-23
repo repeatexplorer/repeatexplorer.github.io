@@ -181,9 +181,12 @@ main .bar > article, main .bar > section:first-child { padding-top: 2.25rem; }
   border-radius: 8px;
 }
 .cards > li.card-muted { background: var(--ground-soft); }
-.cards h3 { margin: 0 0 0.6rem; font-size: 1.18rem; }
-.cards h3 a { color: var(--ink); text-decoration: none; }
-.cards h3 a:hover, .cards h3 a:focus { color: var(--link); }
+/* card titles are h3 on /tools/ and h4 on the home page, where they sit under
+   a section heading; both must look the same */
+.cards h3, .cards h4 { margin: 0 0 0.6rem; font-size: 1.18rem; font-family: var(--display); font-weight: 700; }
+.cards h3 a, .cards h4 a { color: var(--ink); text-decoration: none; }
+.cards h3 a:hover, .cards h4 a:hover,
+.cards h3 a:focus, .cards h4 a:focus { color: var(--link); text-decoration: underline; }
 .cards p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); }
 
 .category-blurb { color: var(--ink-soft); }

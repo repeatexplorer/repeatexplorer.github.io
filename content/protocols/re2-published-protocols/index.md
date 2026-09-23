@@ -1,6 +1,6 @@
 ---
 title: Published RepeatExplorer2 protocols
-description: The four protocols published in Nature Protocols, and the Galaxy histories that accompany them
+description: The four protocols for read-based repeat analysis published in Nature Protocols
 weight: 20
 tools: [repeatexplorer2, tarean]
 level: introductory
@@ -18,15 +18,6 @@ read-based workflow.
 2. Comparative repeat analysis in a set of species
 3. Development of satellite DNA probes for cytogenetic experiments
 4. Identification of centromeric repeats based on ChIP-seq data
-
-## Worked examples on the Galaxy server
-
-Two of the protocols have shared histories on the RepeatExplorer Galaxy server,
-which show the tools, parameters and outputs of a completed run. An account on
-the server is needed to import them.
-
-- [Protocol 1: single species](https://repeatexplorer-elixir.cerit-sc.cz/galaxy/u/kavonrtep/h/protocol-1---single-species)
-- [Protocol 2: comparative analysis](https://repeatexplorer-elixir.cerit-sc.cz/galaxy/u/kavonrtep/h/protocol-2---comparative-analysis)
 
 ## Reading the protocols
 

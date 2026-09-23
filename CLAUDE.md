@@ -126,6 +126,13 @@ Two things to know before touching them:
 Page resources have no size property and `.Content` is text-only, so
 `slides.html` gets file sizes from `os.Stat`.
 
+## What the link checker cannot tell you
+
+`lychee` checks status codes. A Galaxy server answers 200 for a shared history
+that is not actually accessible, so a dead history link passes every check. The
+two protocol histories were removed for exactly this reason. Treat any Galaxy
+`/u/<user>/h/<name>` link as unverified unless someone has opened it.
+
 ## Content model
 
 | Type | Required front matter | Optional |

@@ -1,0 +1,13 @@
+{{/*
+  Returns "upcoming" or "past" for a workshop page. Never guesses: a workshop is
+  upcoming only when its own end_date is still ahead. A year page without dates
+  falls back to comparing the year, so it can never be wrongly advertised as
+  forthcoming.
+*/}}
+{{- $status := "past" -}}
+{{- with .Params.end_date -}}
+  {{- if ge (time.AsTime .) now -}}{{- $status = "upcoming" -}}{{- end -}}
+{{- else -}}
+  {{- if gt .Params.year now.Year -}}{{- $status = "upcoming" -}}{{- end -}}
+{{- end -}}
+{{- return $status -}}

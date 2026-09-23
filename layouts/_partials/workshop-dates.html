@@ -1,0 +1,12 @@
+{{/* "23-25 May 2017", or "25 May - 31 May 2021" when it spans months. */}}
+{{- $s := .Params.start_date -}}
+{{- $e := .Params.end_date -}}
+{{- if and $s $e -}}
+  {{- $st := time.AsTime $s -}}
+  {{- $et := time.AsTime $e -}}
+  {{- if eq ($st.Format "2006-01") ($et.Format "2006-01") -}}
+    {{- printf "%s-%s" ($st.Format "2") ($et.Format "2 January 2006") -}}
+  {{- else -}}
+    {{- printf "%s - %s" ($st.Format "2 January") ($et.Format "2 January 2006") -}}
+  {{- end -}}
+{{- end -}}

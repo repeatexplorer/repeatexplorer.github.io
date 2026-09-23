@@ -89,6 +89,43 @@ A workshop year page is `content/workshops/<year>/_index.md` with
 Use this shape for every year, including years that have no subpages yet, so one
 can be added without restructuring.
 
+## Past and upcoming workshops
+
+The `/workshops/` index splits the list itself; there is no manual "current"
+flag to go stale. `layouts/_partials/workshop-status.html` calls a workshop
+upcoming only while its own `end_date` is still ahead of the build date, so a
+finished workshop cannot stay advertised as forthcoming. A year page with no
+dates falls back to comparing `year`, which fails safe to past.
+
+`start_date` and `end_date` are therefore required on every year page and
+`validate_data.py` enforces them, along with end >= start and the start year
+matching `year`. The displayed range is rendered by
+`layouts/_partials/workshop-dates.html`; do not also write a `dates:` string,
+that would be the same fact twice.
+
+When no workshop is upcoming the index says so explicitly. That is the current
+state: the most recent was 2025.
+
+## Workshop presentations
+
+Slides are page resources of the workshop they belong to, with their titles in
+`resources:` front matter. Years whose old site had a dedicated slides page keep
+one (`2017/presentations/`, `2019/materials/`, per the inventory); the rest
+attach their PDFs to the year page.
+
+Two things to know before touching them:
+
+- A PDF's upload folder on the old site does not give its year. WordPress filed
+  the 2016 slides under `uploads/2014/03/`. Year came from each file's own PDF
+  CreationDate.
+- The 2014-2016 slides were never linked from any page, so no title survives.
+  Theirs are rendered from the filename and carry
+  `params.title_from_filename: true`, which makes the page print a line saying
+  so. Replace a title with a real one and remove the flag.
+
+Page resources have no size property and `.Content` is text-only, so
+`slides.html` gets file sizes from `os.Stat`.
+
 ## Content model
 
 | Type | Required front matter | Optional |

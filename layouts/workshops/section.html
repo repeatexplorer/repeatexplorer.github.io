@@ -5,15 +5,47 @@
   <article class="workshop-index">
     <h1>{{ .Title }}</h1>
     {{ .Content }}
+
     {{ $years := .Pages.ByParam "year" }}
-    <ul class="workshop-list">
-      {{ range $years.Reverse }}
-        <li>
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          {{ with .Params.dates }}<span class="dates">{{ . }}</span>{{ end }}
-          {{ with .Params.venue }}<span class="venue">{{ . }}</span>{{ end }}
-        </li>
+    {{ $upcoming := slice }}
+    {{ $past := slice }}
+    {{ range $years }}
+      {{ if eq (partial "workshop-status.html" .) "upcoming" }}
+        {{ $upcoming = $upcoming | append . }}
+      {{ else }}
+        {{ $past = $past | append . }}
       {{ end }}
-    </ul>
+    {{ end }}
+
+    <section class="workshops-upcoming">
+      <h2>Next workshop</h2>
+      {{ with $upcoming }}
+        <ul class="workshop-list">
+          {{ range . }}{{ partial "workshop-item.html" . }}{{ end }}
+        </ul>
+      {{ else }}
+        <p class="no-upcoming">
+          No workshop is currently announced. The workshops have run most years
+          since 2014; announcements appear here and on the
+          <a href="{{ site.Params.galaxy_url }}">Galaxy server</a>.
+        </p>
+      {{ end }}
+    </section>
+
+    {{ with $past }}
+      <section class="workshops-past">
+        <h2>Past workshops</h2>
+        <p>
+          Programmes and, where they survive, the presentation slides.
+          {{ $n := 0 }}
+          {{ range . }}{{ $n = add $n (len (.Resources.Match "**.pdf")) }}
+          {{ range .Pages }}{{ $n = add $n (len (.Resources.Match "**.pdf")) }}{{ end }}{{ end }}
+          {{ with $n }}{{ . }} presentations are archived.{{ end }}
+        </p>
+        <ul class="workshop-list">
+          {{ range .Reverse }}{{ partial "workshop-item.html" . }}{{ end }}
+        </ul>
+      </section>
+    {{ end }}
   </article>
 {{ end }}

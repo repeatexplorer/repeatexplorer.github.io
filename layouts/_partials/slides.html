@@ -1,0 +1,28 @@
+{{/* Lists the PDF resources of a page as a download list.
+
+     Size comes from os.Stat on the file in content/: page resources do not
+     expose a size, and .Content is text-only and errors on a PDF. */}}
+{{ $pdfs := .Resources.Match "**.pdf" }}
+{{ $dir := .File.Dir }}
+{{ with $pdfs }}
+  <section class="slides">
+    <h2>Presentations</h2>
+    <ul class="slide-list">
+      {{ range . }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ with .Title }}{{ . }}{{ else }}{{ .Name }}{{ end }}</a>
+          {{ with os.Stat (path.Join $dir .Name) }}
+            <span class="filemeta">PDF, {{ math.Round (div (float .Size) 1048576) }} MB</span>
+          {{ end }}
+        </li>
+      {{ end }}
+    </ul>
+    {{ $derived := where . "Params.title_from_filename" true }}
+    {{ with $derived }}
+      <p class="slides-note">
+        {{ len . }} of these were never linked from the old site; their titles are
+        taken from the file name and may not match what was presented.
+      </p>
+    {{ end }}
+  </section>
+{{ end }}

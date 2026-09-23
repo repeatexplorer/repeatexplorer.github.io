@@ -96,6 +96,21 @@ def main():
             if fm.get('layout') != 'workshop':
                 err(rel, 'workshop year pages need `layout: workshop`, otherwise '
                          'Hugo renders them with the section index template')
+            # past/upcoming is derived from end_date, never from a manual flag,
+            # so a finished workshop cannot be left advertised as forthcoming.
+            for f in ('start_date', 'end_date'):
+                v = fm.get(f)
+                if v is None:
+                    err(rel, f'workshop year pages need {f} (YYYY-MM-DD); '
+                             f'the index derives past/upcoming from end_date')
+                elif not isinstance(v, (datetime.date, datetime.datetime)):
+                    err(rel, f'{f} must be a date, got {v!r}')
+            s_, e_ = fm.get('start_date'), fm.get('end_date')
+            if isinstance(s_, datetime.date) and isinstance(e_, datetime.date):
+                if e_ < s_:
+                    err(rel, f'end_date {e_} precedes start_date {s_}')
+                if s_.year != fm['year']:
+                    err(rel, f'start_date {s_} does not fall in year {fm["year"]}')
 
     if errors:
         print(f'{len(errors)} problem(s):', file=sys.stderr)

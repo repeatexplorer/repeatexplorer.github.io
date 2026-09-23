@@ -1,0 +1,8 @@
+{{ $slides := len (.Resources.Match "**.pdf") }}
+{{ range .Pages }}{{ $slides = add $slides (len (.Resources.Match "**.pdf")) }}{{ end }}
+<li>
+  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  {{ with partial "workshop-dates.html" . }}<span class="dates">{{ . }}</span>{{ end }}
+  {{ with .Params.venue }}<span class="venue">{{ . }}</span>{{ end }}
+  {{ with $slides }}<span class="slides-count">{{ . }} presentation{{ if gt . 1 }}s{{ end }}</span>{{ end }}
+</li>

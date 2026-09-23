@@ -10,7 +10,7 @@
     <header>
       <h1>{{ .Title }}</h1>
       <dl class="workshop-facts">
-        {{ with .Params.dates }}<dt>Dates</dt><dd>{{ . }}</dd>{{ end }}
+        {{ with partial "workshop-dates.html" . }}<dt>Dates</dt><dd>{{ . }}</dd>{{ end }}
         {{ with .Params.venue }}<dt>Venue</dt><dd>{{ . }}</dd>{{ end }}
         {{ with .Params.lecturers }}<dt>Lecturers</dt><dd>{{ delimit . ", " }}</dd>{{ end }}
       </dl>
@@ -36,6 +36,8 @@
         {{ end }}
       </section>
     {{ end }}
+
+    {{ partial "slides.html" . }}
 
     {{ with .Params.materials_url }}
       <section class="materials">

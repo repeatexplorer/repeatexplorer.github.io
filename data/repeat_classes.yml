@@ -1,0 +1,44 @@
+# The vocabulary behind the class badges on tool pages and the tools index.
+#
+# Each key is a kind of sequence a tool annotates. `label` is what the badge
+# says; `colour` names the CSS custom property that paints it, defined in
+# assets/css/site.css. Adding a class here means adding --class-<key> there.
+#
+# Keep this list short. The badges only work as a code while a reader can hold
+# the whole vocabulary in mind, and every new tool has to fit one of them.
+
+ltr:
+  label: LTR retrotransposons
+  short: LTR
+  colour: ltr
+  weight: 10
+
+tandem:
+  label: Tandem repeats
+  short: Tandem
+  colour: tandem
+  weight: 20
+
+dna_transposons:
+  label: DNA transposons
+  short: DNA
+  colour: dna
+  weight: 30
+
+protein_domains:
+  label: Protein domains
+  short: Domains
+  colour: neutral
+  weight: 40
+
+reference:
+  label: Reference data
+  short: Reference
+  colour: neutral
+  weight: 50
+
+all_repeats:
+  label: All repeat classes
+  short: All
+  colour: neutral
+  weight: 60

@@ -1,35 +1,36 @@
 {{ define "main" }}
-  <article class="tool-index">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
+  <div class="bar">
+    <article class="tool-index">
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
 
-    {{/* Order comes from each page's `weight`, not from the key order in
-         data/tools.yml: ranging over a map sorts alphabetically, which put
-         ChIP-Seq Mapper ahead of RepeatExplorer2. */}}
-    {{ $pages := .Pages.ByWeight }}
-    {{ $categories := slice
-        (dict "key" "reads"    "title" "Reads-based" "blurb" "Analyse unassembled sequencing reads, typically low-coverage whole-genome shotgun data.")
-        (dict "key" "assembly" "title" "Assembly-based" "blurb" "Annotate repeats in an assembled genome.")
-        (dict "key" "database" "title" "Databases" "blurb" "Reference data the tools depend on.")
-    }}
-    {{ range $categories }}
-      {{ $cat := .key }}
-      <section class="tool-category">
-        <h2>{{ .title }}</h2>
-        <p>{{ .blurb }}</p>
-        <ul class="cards">
-          {{ range $pages }}
-            {{ $tool := index hugo.Data.tools .Params.tool }}
-            {{ if eq $tool.category $cat }}
-              <li>
-                <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
-                <p>{{ $tool.summary }}</p>
-                {{ with $tool.galaxy }}<p class="on-galaxy">On the Galaxy server</p>{{ end }}
-              </li>
+      {{/* Order comes from each page's `weight`, not from the key order in
+           data/tools.yml: ranging over a map sorts alphabetically. */}}
+      {{ $pages := .Pages.ByWeight }}
+      {{ $categories := slice
+          (dict "key" "reads"    "title" "Reads-based" "blurb" "Analyse unassembled sequencing reads, typically low-coverage whole-genome shotgun data.")
+          (dict "key" "assembly" "title" "Assembly-based" "blurb" "Annotate repeats in an assembled genome.")
+          (dict "key" "database" "title" "Databases" "blurb" "Reference data the tools depend on.")
+      }}
+      {{ range $categories }}
+        {{ $cat := .key }}
+        <section class="tool-category">
+          <h2>{{ .title }}</h2>
+          <p class="category-blurb">{{ .blurb }}</p>
+          <ul class="cards">
+            {{ range $pages }}
+              {{ $tool := index hugo.Data.tools .Params.tool }}
+              {{ if eq $tool.category $cat }}
+                <li{{ if eq $cat "database" }} class="card-muted"{{ end }}>
+                  <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
+                  {{ partial "badges.html" (dict "tool" $tool "short" true) }}
+                  <p>{{ $tool.summary }}</p>
+                </li>
+              {{ end }}
             {{ end }}
-          {{ end }}
-        </ul>
-      </section>
-    {{ end }}
-  </article>
+          </ul>
+        </section>
+      {{ end }}
+    </article>
+  </div>
 {{ end }}

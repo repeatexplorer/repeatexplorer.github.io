@@ -3,6 +3,14 @@
 <title>{{ if .IsHome }}{{ site.Title }} | {{ site.Params.description }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
 <link rel="canonical" href="{{ .Permalink }}">
+{{/* Fonts are self-hosted: loading them from Google's CDN would send every
+     visitor's IP address to Google. See assets/fonts/LICENSE.md. */}}
+{{ with resources.Get "fonts/space-grotesk-var.woff2" }}
+  <link rel="preload" href="{{ .RelPermalink }}" as="font" type="font/woff2" crossorigin>
+{{ end }}
+{{ with resources.Get "fonts/public-sans-var.woff2" }}
+  <link rel="preload" href="{{ .RelPermalink }}" as="font" type="font/woff2" crossorigin>
+{{ end }}
 {{ with resources.Get "css/site.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
 {{ end }}

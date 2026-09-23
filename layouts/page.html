@@ -1,4 +1,5 @@
 {{ define "main" }}
+  <div class="bar">
   <article class="page">
     <h1>{{ .Title }}</h1>
     {{ partial "notices.html" . }}
@@ -11,4 +12,5 @@
     {{ .Content }}
     {{ partial "citation.html" . }}
   </article>
+</div>
 {{ end }}

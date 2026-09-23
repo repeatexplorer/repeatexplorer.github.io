@@ -47,6 +47,7 @@ def check_schema(data, schema_path, label):
 def main():
     tools = load_yaml(ROOT / 'data' / 'tools.yml')
     pubs = load_yaml(ROOT / 'data' / 'publications.yml') or {}
+    classes = load_yaml(ROOT / 'data' / 'repeat_classes.yml') or {}
 
     check_schema(tools, ROOT / 'schemas' / 'tools.schema.json', 'data/tools.yml')
     check_schema(pubs, ROOT / 'schemas' / 'publications.schema.json', 'data/publications.yml')
@@ -64,6 +65,10 @@ def main():
         if not (ROOT / 'content' / 'tools' / slug / 'index.md').exists():
             err('data/tools.yml', f'{key}: no content/tools/{slug}/index.md, so the '
                                   f'tool will not appear in the tools index')
+        for cls in tool.get('annotates', []):
+            if cls not in classes:
+                err('data/tools.yml', f'{key}.annotates: {cls!r} is not a key in '
+                                      f'data/repeat_classes.yml')
         for slug in tool.get('protocols', []):
             if not (ROOT / 'content' / 'protocols' / slug).exists():
                 err('data/tools.yml', f'{key}.protocols: no content/protocols/{slug}/')

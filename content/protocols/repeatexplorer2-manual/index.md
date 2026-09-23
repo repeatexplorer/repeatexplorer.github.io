@@ -11,7 +11,7 @@ archived: >-
 
 This manual was written for original version of RepeatExplorer, manuall for RepeatExplorer2 can be found in this [wiki](https://github.com/kavonrtep/repex_tarean)
 
-# 1 Introduction
+## 1 Introduction
 *RepeatExplorer* is a computational pipeline for discovery and characterization of repetitive sequences in eukaryotic genomes. The pipeline uses high-throughput genome sequencing data as an input and performs graph-based clustering analysis of sequence read similarities to identify repetitive elements within analyzed samples. The analysis principles were described in [Novak et al. (2010)](https://www.biomedcentral.com/1471-2105/11/378) and examples of its application can be found in a number of published papers (see Appendix). It should be noted that although the repeat identification algorithm generally works for any genome, some parts of the pipeline (e.g. protein domain-based classification of mobile elements) were primarily developed for application to plant genomics. However, there is a possibility to supply a custom repeat database to improve sensitivity in classification of non-plant repeats.
 
 A public web server running *RepeatExplorer* is accessible at [`https://www.repeatexplorer.org`](https://www.repeatexplorer.org). The server uses only a small computer cluster for data analysis, therefore there are some restrictions imposed on its users in terms of available RAM, disc space and number of jobs run in parallel. The server can be used without registration, but it is recommended to set up a free account allowing the use of advanced features like data and workflow sharing. Users requiring more computational resources can set up their own instance of *RepeatExplorer* using its freely available source code. Consult installation instructions provided in Appendix.
@@ -26,14 +26,14 @@ Please include the following citations to your publications when presenting resu
 
 To provide feedback or report a problem please send email to server administrator: admin&lt;at&gt;repeatexplorer.org
 
-# 2 Basic steps
-## 2.1 Getting your data to/from the server
-### 2.1.1 Direct upload/Download
+## 2 Basic steps
+### 2.1 Getting your data to/from the server
+#### 2.1.1 Direct upload/Download
 This option is suitable for small files (&lt; 500 MB) only. In the left panel (**Tools**) select: **Get Data –&gt; Upload File**
 
 Datasets can be downloaded from dataset menu using diskette icon. In case you encounter connection problems use ftp download described below.
 
-### 2.1.2 Using FTP
+#### 2.1.2 Using FTP
 Large datasets and/or multiple files should be uploaded via FTP employing *FTP over explicit TLS/SSL* protocol. We recommend using [FileZilla](https://filezilla-project.org/) FTP client with host name set to *repeatexplorer.umbr.cas.cz* and server type set to *FTPES*. To logon, use your *RepeatExplorer* account username and password. Alternatively, a command line tool *curl* can be used:
 
     curl -T my_file -k -v --ftp-ssl -u user:passwd ftp://repeatexplorer.umbr.cas.cz
@@ -45,10 +45,10 @@ Please note that FTP can also be used to transfer output data from your analysis
     curl -C - -o my_file.zip -k -v --ftp-ssl 
     -u user:passwd ftp://repeatexplorer.umbr.cas.cz/my_file.zip
 
-### 2.1.3 Downloading sequences from EBI SRA
+#### 2.1.3 Downloading sequences from EBI SRA
 Publically available datasets can be downloaded directly from the EBI Short Read Archive using **Get Data –&gt; EBI SRA** tool. Enter the ENA accession number in the search window, locate the corresponding dataset and select download link in the “Galaxy” column.
 
-## 2.2 Pre-processing of sequence reads
+### 2.2 Pre-processing of sequence reads
 The clustering analysis requires a single file containing read sequences in FASTA format as an input. If such a file can be uploaded by the user, no pre-processing is required. However, data obtained from sequencing facilities or downloaded from public archives are usually in FASTQ format combining nucelotide sequence information with sequencing quality scores. There is a number of programs for analyzing and pre-processing raw sequence reads in **Tools –&gt; NGS: QC and manipulation**. Some additional tools are provided in **Tools –&gt; Repeat Explorer –&gt; Utilities**. Tools recommended for pre-processing FASTQ data are listed below (help on using these tools is provided below their input forms):
 
 -   **Tools –&gt; NGS: QC and manipulation –&gt; (ILLUMINA FASTQ) FASTQ Groomer** : Groomer has to be run first in order to use any other tool for FASTQ manipulation. Take care to select correct *FASTQ quality scores type*.
@@ -121,10 +121,10 @@ The clustering analysis requires a single file containing read sequences in FAST
             atatgctatgcgcgc
             ...
 
-## 2.3 Clustering analysis
+### 2.3 Clustering analysis
 The analysis can be run from **Tools –&gt; Repeat Explorer –&gt; Clustering**. It should be noted that due to its computational complexity the clustering procedure can take several days to finish, depending on the number of reads and repeat composition of analyzed samples. In extreme cases of genomes rich in certain types of repeats (e.g., satellite DNA), running time can be up to two weeks, whereas repeat-poor and small datasets are analyzed in several hours. To avoid exhausting available memory, repeat complexity of analyzed data is estimated before performing full-scale analysis using a small, randomly sampled subset of reads. If necessary, the number of reads in the dataset is then automatically reduced by random sampling (see analysis log file for information about eventual reduction of the dataset). However, **it is still recommended to perform a test run with a small subset (e.g. 100,000) of reads before running any large-scale analysis.**
 
-### 2.3.1 Parameters
+#### 2.3.1 Parameters
 Repeat identification using graph-based read clustering is a multi-step procedure that starts with an all-to-all sequence comparison in order to find pairs of reads with similarity that satisfy a specified threshold. This threshold is explicitly set to 90% sequence similarity spanning at least 55% of the read length (in the case of reads differing in length it applies to the longer one). However, it can be modified by changing *Minimum overlap length for clustering* value (see below). There is a number of other adjustable parameters to be set based on your input data and analysis type:
 
 -   *Input DNA sequences:* A file with sequence reads in FASTA format. It is usually generated from raw sequence reads using **Pre-processing tools**.
@@ -138,16 +138,16 @@ Repeat identification using graph-based read clustering is a multi-step procedur
 -   *Search conserved domain database:* Runs RPS-BLAST search of read sequences against a database of conserved protein domains. This analysis is time consuming, taking ~ 8 hours to process 1 million reads on the current system.
 -   *Minimal overlap for assembly:* This option corresponds to the `"-o"` parameter of the cap3 program which is used for read assembly within the clusters. Default value of 40 can be increased for reads longer than 100 nt.
 
-### 2.3.2 Description of the output files
+#### 2.3.2 Description of the output files
 Execution of the clustering analysis results in the generation of four new entries in the **History** panel. Two of them, *Log file* and *Contigs* consist of single plain text files, whereas *HTML summary* and *Archive with clustering results* contain multiple folders and files that can be downloaded as zip archives. The content of the *HTML summary* output can also be directly viewed using “Display data in browser” option (an eye symbol). Below is a description of the most important files within output data.
 
-#### 2.3.2.1 Log file
+##### 2.3.2.1 Log file
 The file lists analysis parameters and gathers various messages generated during the pipeline run. It is being updated during the run, thus it can be viewed to monitor analysis progress.
 
-#### 2.3.2.2 HTML summary
+##### 2.3.2.2 HTML summary
 This archive contains an overview of clustering results. It can be inspected either directly from the Galaxy menu, or after downloading and unpacking the archive by opening the file `HTML_summary_of_graph_based_clustering...html` (within `HTML_summary...` directory). There is a histogram showing sizes and cumulative proportions of the clusters, total proportions of clustered reads and singlets. Below, there is a table that lists various information for the largest clusters. Further details can be viewed for each cluster by following the link *CLnumber*.
 
-#### 2.3.2.3 Archive with clustering results
+##### 2.3.2.3 Archive with clustering results
 Upon downloading and unpacking the archive there will be a top directory (`seqClust`) generated, containing all the files. Below, we refer to each file by its path related to the `seqClust` directory:
 
 -   `/seqClust/sequences/`: directory storing sequence reads which were used as input for the clustering analysis
@@ -186,7 +186,7 @@ Upon downloading and unpacking the archive there will be a top directory (`seqCl
 
     -   `contigs.info.minRD5`:contigs with average read depth &gt;= 5 sorted according to read depth (`_sort-GR` sorted according to genome representation; `_sort-length` sorted according to contig length)
 
-## 2.4 Re-clustering
+### 2.4 Re-clustering
 Since the clustering algorithm frequently splits large or variable repetitive elements into multiple clusters, it may be desirable to merge these clusters for subsequent analysis. To do so, use **Tools –&gt; Repeat Explorer –&gt; Cluster merger**. Upload a plain text file with lists of cluster numbers to be merged on separate lines, e.g.:
 
     1 6 15 89
@@ -195,37 +195,37 @@ Since the clustering algorithm frequently splits large or variable repetitive el
 
 Select the previously calculated *Archive with clustering analysis* to be re-clustered. The clusters from this archive listed on each line will be merged (e.g. 1 + 6 + 15 + 89 will make a new cluster) and their graph layouts and other characteristics will be re-calculated. The remaining clusters from the previous analysis will remain the same but their numbering will probably change (clusters will be re-numbered based on their size).
 
-## 2.5 Identification and analysis of LTR-retroelement protein domains
+### 2.5 Identification and analysis of LTR-retroelement protein domains
 This analysis is aimed at extraction and phylogenetic analysis of conserved regions of LTR-retroelement protein domains from a set of input nucleotide sequences. It has been designed for analyzing contig sequences obtained from the clustering analysis; however, it can be applied to any multi-fasta file of DNA sequences provided they do not contain multiple domains of the same type. The analysis consists of three consecutive steps:
 
 -   **Tools –&gt; Repeat Explorer –&gt; (PROTEIN DOMAINS TOOLS) Protein domain search** : Analyzed sequences are scanned for similarity to a comprehensive database of plant retroelement protein domains (either of GAG, PROT, RT, RH, INT, CHDCR chromodomain or CHDII chromodomain can be selected). The search is perfomed using fasty36 \[LINK !\] program with default parameters which are relatively relaxed (`-E 10`).
 -   **Tools –&gt; Repeat Explorer –&gt; (PROTEIN DOMAINS TOOLS) Filter output** : Output from the previous step is filtered using user-specified stringency parameters, resulting in a multi-fasta file of identified protein domain sequences supplemented with a set of sequences from the reference database that generated the best similarity hits. The reference sequences have information that defines the type and phylogenetic clade of the element (separate files are generated for Ty1/copia and Ty3/gypsy elements). The files can be downloaded or further processed using **Create tree** tool.
 -   **Tools –&gt; Repeat Explorer –&gt; (PROTEIN DOMAINS TOOLS) Create tree** : Runs multiple sequence alignment using Muscle program and calculates phylogenetic tree using the neighbor-joining method. The resulting alignment can be downloaded along with the tree in Newick format and HTML output including tree image.
 
-# 3 Examples of analysis workflows
+## 3 Examples of analysis workflows
 The following examples were designed to illustrate the most frequent applications of *RepeatExplorer* and to practically demonstrate its various tools and data types. Although the examples use real sequence data as an input, these datasets were reduced in size for the sake of analysis speed, therefore providing lower sensitivity in repeat detection compared to analyzing larger volumes of sequence data. In addition, some aspects of downstream analyzes are covered only briefly and should be treated more thoroughly when performing real analysis.
 
 The examples are available via Galaxy menu *Shared Data –&gt; Published Histories*, or directly using the links provided below. Each example history provides a record of finished analysis, including input data, output of individual analysis steps and parameters used to run the tools. **Please read the annotations of individual steps in histories as they provide an explanation for the workflow**. The workflows extracted from the example histories are also available (to import workflow to your account go to “Shared data -&gt; Published workflows” in the Galaxy menu, select workflow from a list and then “Import workflow”). After importing, select “Edit” workflow in order to view its structure and eventually modify some parameters to suit your data. Alternatively, histories can also be imported to user accounts and used to extract workflows (*History –&gt; Extract Workflow*) for repeated use with different input data. Input data used for all examples are provided as a separate history (“Input data for example histories”). Original raw sequencing data used for the examples are from whole genome shotgun sequencing of rye (*Secale cereale*) plants containing or lacking supernumerary B chromosomes (EBI SRA study [ERP001061](https://www.ebi.ac.uk/ena/data/view/ERP001061); Martis et al. 2012), and from pea (*Pisum sativum*) genome (SRA study [ERP001104](https://www.ebi.ac.uk/ena/data/view/ERP001104); Neumann et al. 2012).
 
-## 3.1 Example history \#1: Clustering analysis of a small sample dataset of 454 reads followed by identification and phylogenetic analysis of retrotransposon RT domains in assembled contigs
+### 3.1 Example history \#1: Clustering analysis of a small sample dataset of 454 reads followed by identification and phylogenetic analysis of retrotransposon RT domains in assembled contigs
 A simple example that includs a random sampling of 200,000 sequences from FASTA formatted set of 454 reads and subsequent clustering analysis. The dataset was prepared from sequencing rye plants containing B chromosomes.
 
 Link: [`https://www.repeatexplorer.org/u/jirka/h/example-history-1-1`](https://www.repeatexplorer.org/u/jirka/h/example-history-1-1) ![workflow\_1](workflow_1.png "Scheme of the workflow of Example history #1")  
 Workflow representing Example history \#1
 
-## 3.2 Example history \#2: Comparative analysis of repeats between two genomes
+### 3.2 Example history \#2: Comparative analysis of repeats between two genomes
 The example demonstrates the processing of raw 454 sequence data downloaded in FASTQ format from a public repository, random sampling of reads from several sequencing runs in order to obtain a more representative dataset and various read manipulations (quality filtering, trimming to the same length). Two samples representing genome variants of rye (Secale cereale) differing in the presence (4B) or absence (0B) of supernumerary B chromosomes are processed in parallel and subsequently used for comparative analysis of their repeat composition.
 
 Link: [`https://www.repeatexplorer.org/u/jirka/h/example-history-2`](https://www.repeatexplorer.org/u/jirka/h/example-history-2) ![workflow\_2](workflow_2.png "Scheme of the workflow of Example history #2")  
 Workflow representing Example history \#2
 
-## 3.3 Example history \#3: Clustering analysis using paired-end Illumina reads
+### 3.3 Example history \#3: Clustering analysis using paired-end Illumina reads
 The history shows utilization of paired-end reads for repeat characterization in the genome of garden pea (*Pisum sativum*). Datasets containing forward and reverse reads are processed separately, then combined and used for the clustering analysis.
 
 Link: [`https://www.repeatexplorer.org/u/jirka/h/example-history-3`](https://www.repeatexplorer.org/u/jirka/h/example-history-3) ![workflow\_3](workflow_3.png "Scheme of the workflow of Example history #3")  
 Workflow representing Example history \#3
 
-# 4 Command line version
+## 4 Command line version
 Clustering can be also performed without Galaxy platform using command line version of the pipeline. Installation of command line version is described in Apendix. RepeatExplorer is also vailable on Czech National Grid Infrastructure (see [www.metacentrum.cz](https://www.metacentrum.cz) ). To use RepeatExplorer command line version in metacentrum type:
 
     module add repeatexplorer
@@ -284,13 +284,13 @@ When you use seqclust\_cmd.py on matacentrum PBS cluster, be carefull about reso
     merging of clusters from previous clustering:
         seqclust_cmd.py -z output_directory -b merge.txt -v output_directory2
 
-# 5 Appendices
-## 5.1 Links to web resources
+## 5 Appendices
+### 5.1 Links to web resources
 Galaxy Wiki: [`https://wiki.g2.bx.psu.edu/`](https://wiki.g2.bx.psu.edu/)
 
 FileZilla FTP client: [`https://filezilla-project.org/`](https://filezilla-project.org/)
 
-## 5.2 List of papers using graph-based read clustering for repeat identification
+### 5.2 List of papers using graph-based read clustering for repeat identification
 (sorted chronologically)
 
 Novak, P., Neumann, P., Macas, J. (2010) – [Graph-based clustering and characterization of repetitive sequences in next-generation sequencing data](https://www.biomedcentral.com/1471-2105/11/378). BMC Bioinformatics 11: 378.
@@ -327,8 +327,8 @@ Klemme, S., Banaei-Moghaddam, A.M., Macas, J., Wicker, T., Novak, P., Houben, A.
 
 Steflova, P., Tokan, V., Vogel, I., Lexa, M., Macas, J., Novak, P., Hobza, R., Vyskot, B., Kejnovsky, E. (2013) – [Contrasting patterns of transposable element and satellite distribution on sex chromosomes (XY1Y2) in the dioecious plant Rumex acetosa](https://gbe.oxfordjournals.org/content/5/4/769.full). Genome Biol. Evol. 5: 769-782.
 
-## 5.3 Installation
-### 5.3.1 Dependencies
+### 5.3 Installation
+#### 5.3.1 Dependencies
 There is number of additional dependencies not provided by RepeatExplorer authors. Additional programs include:
 
 -   **R programming environment** ([`https://www.r-project.org`](https://www.r-project.org)). Beside R core installation, additional library must be installed: foreach, igraph, getopt, R2HTML, lattice, doMC, multicore, ape and Biostrings (available from [`https://www.bioconductor.org`](https://www.bioconductor.org))
@@ -345,7 +345,7 @@ There is number of additional dependencies not provided by RepeatExplorer author
 -   **GNU parallel** is now provided with RepeatExplorer [`https://www.gnu.org/software/parallel/`](https://www.gnu.org/software/parallel/)
 -   Conserve Domain Database (**CDD**) can be obtained from NCBI ftp site:[`ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/`](ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/)
 
-### 5.3.2 Adding RepeatExplorer to your local Galaxy installation
+#### 5.3.2 Adding RepeatExplorer to your local Galaxy installation
 -   To obtain copy of RepeatExplorer from repository, run Mercurial commands:
 
         hg clone https://bitbucket.org/repeatexplorer/repeatexplorer
@@ -366,7 +366,7 @@ The above steps can be also performed using script *install2galaxy.sh* executed 
 
 If using `install2galaxy.sh` script, we recommend to make a backup copy of *tool\_conf.xml*. Note that `install2galaxy.sh` script will place *RepeatExplorer* menu as the last item of installed *Galaxy* tools.
 
-### 5.3.3 Setting up correct paths
+#### 5.3.3 Setting up correct paths
 File `seqclust.config` located in `$GALAXY_DIR/tools/umbr_programs/seqclust/programs/` directory defines some environment variables necessary for RepeatExplorer functionality. It is possible to either set variables according to your local installation or adjust your program and databases locations to correspond to the default configuration setting. A second option will ease future RepeatExplorer updates. The configuration file defines following variable:
 
 -   `$TGICL` location of TGICL program directory. Essential executable files,including mgblast and cap3, are located in `$TGCIL/bin`
@@ -379,7 +379,7 @@ Additional variables in `seqclust.config`:
 -   `$MAXEDGES` can limit the maximal size of the data set which could be processed. Normally, this limit is set based on the available computer RAM. If the gathering information about memory size fails, then the `$MAXEDGES` variable is used instead. By default `$MAXEDGES` is set to 350000000 which is suitable for computer with 16 GB of RAM.
 -   variables `$MAXEDGES_FOR_LAYOUT` and `$MAXNODES_FOR_LAYOUT` limit the maximal size of graph for which the layout is calculated. If number of sequences or similarity hits in cluster exceed `$MAXNODES_FOR_LAYOUT` or `$MAXEDGES_FOR_LAYOUT` respectively, sample of cluster is created and used for layout calculation. The increasing these parameters can significantly affect computation time.
 
-### 5.3.4 Updates
+#### 5.3.4 Updates
 If *RepeatExplorer* was obtained using *Mercurial*, then running commands from repeatexplorer folder will update installation
 
     hg pull
@@ -388,10 +388,10 @@ If *RepeatExplorer* was obtained using *Mercurial*, then running commands from r
 
 alternatively, download files manually from repository, unpack and install with `/install2galaxy.sh -d $GALAXY_DIR` command
 
-### 5.3.5 Command line version
+#### 5.3.5 Command line version
 Command line version of clustering and merging is provided. See the README.txt for installation intructions
 
-## 5.4 RepeatExplorer performance
+### 5.4 RepeatExplorer performance
 Currently, the clustering step uses the Louvain method. While this method outperforms the previously used method , in terms of computational time, it still requires that the whole graph is loaded into memory. Memory usage is directly proportional to the total number of similarity hits. The number of similarity hits *E* can be calculated from:
 
 > *E = N(N-1)k*
@@ -400,13 +400,13 @@ Where *N* is the total number of reads and *k* is a coefficient which depends on
 
 To cut down computation time, some parts of RepeatExplorer were parallelized to take advantage of multicore processors. Namely, all to all sequence comparison with *mgablast*, protein domain search with rpsblast and blastx and graph layout calculation. This parallelization does not required any special setting except installation of *GNU parallel* and *R* packages *foreach*, *multicore* and *doMC*.
 
-## 5.5 License
+### 5.5 License
 Copyright (c) 2012 Petr Novak (petr@umbr.cas.cz), Jiri Macas, Pavel Neumann
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see [`https://www.gnu.org/licenses/`](https://www.gnu.org/licenses/).
 
-## 5.6 Schematic representation of the RepeatExplorer pipeline
+### 5.6 Schematic representation of the RepeatExplorer pipeline
 ![pipeline](pipeline_scheme.png "Scheme of clustering pipeline")  
 Scheme of the clustering pipeline

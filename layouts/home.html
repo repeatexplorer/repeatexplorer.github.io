@@ -1,25 +1,72 @@
 {{ define "main" }}
   {{ partial "redirect-shim.html" . }}
-  <article class="home">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
 
-    <section class="entry-points">
-      <h2>Start here</h2>
+  <div class="hero">
+    <div class="bar">
+      <h1>Every repeat class, <span class="accent">one annotation</span></h1>
+      <p class="lead">{{ .Params.lead | default "Each tool annotates a different part of the genome. The badges below mark which, and follow the tools through the site." }}</p>
+      {{ partial "track.html" . }}
+      <p class="badges legend">
+        {{/* `where` matches nothing on a data map in Hugo 0.166, though `sort`
+             works on the same map; filter inside the range instead. */}}
+        {{ range sort hugo.Data.repeat_classes "weight" }}
+          {{ if ne .colour "neutral" }}
+            <span class="badge badge-class badge-{{ .colour }}"><span class="badge-dot" aria-hidden="true"></span>{{ .label }}</span>
+          {{ end }}
+        {{ end }}
+      </p>
+    </div>
+  </div>
+
+  <div class="bar">
+    {{ with .Content }}<div class="intro">{{ . }}</div>{{ end }}
+
+    <section class="tool-index">
+      <h2>What each tool annotates</h2>
+      {{ $assembly := where (where site.RegularPages "Section" "tools") "Params.tool" "!=" nil }}
       <ul class="cards">
-        <li>
-          <h3><a href="{{ site.Params.galaxy_url }}">Galaxy server</a></h3>
-          <p>Run the tools in a browser. Registration is free.</p>
-        </li>
-        <li>
-          <h3><a href="{{ "/tools/" | relURL }}">Tools</a></h3>
-          <p>Which tool fits your data: sequencing reads or a genome assembly.</p>
-        </li>
-        <li>
-          <h3><a href="{{ "/protocols/" | relURL }}">Protocols</a></h3>
-          <p>Step-by-step guides, including the published Nature Protocols workflows.</p>
-        </li>
+        {{ range $assembly.ByWeight }}
+          {{ $tool := index hugo.Data.tools .Params.tool }}
+          {{ if eq $tool.category "assembly" }}
+            <li>
+              <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
+              {{ partial "badges.html" (dict "tool" $tool "short" true) }}
+              <p>{{ $tool.summary }}</p>
+            </li>
+          {{ end }}
+        {{ end }}
+        {{ with site.GetPage "/tools/rexdb" }}
+          {{ $tool := index hugo.Data.tools .Params.tool }}
+          <li class="card-muted">
+            <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
+            {{ partial "badges.html" (dict "tool" $tool "short" true) }}
+            <p>{{ $tool.summary }}</p>
+          </li>
+        {{ end }}
       </ul>
     </section>
-  </article>
+
+    <section class="split">
+      <div>
+        <h3>Working from reads instead?</h3>
+        <p>
+          {{ $reads := slice }}
+          {{ range (where (where site.RegularPages "Section" "tools") "Params.tool" "!=" nil).ByWeight }}
+            {{ if eq (index hugo.Data.tools .Params.tool).category "reads" }}{{ $reads = $reads | append . }}{{ end }}
+          {{ end }}
+          {{ range $i, $p := $reads }}{{ if $i }}{{ if eq (add $i 1) (len $reads) }} and {{ else }}, {{ end }}{{ end }}<a href="{{ $p.RelPermalink }}">{{ (index hugo.Data.tools $p.Params.tool).name }}</a>{{ end }}
+          need no assembly &mdash; low-coverage shotgun reads are enough.
+        </p>
+      </div>
+      <div>
+        <h3>Workshops</h3>
+        <p>
+          {{ with site.GetPage "/workshops" }}
+            Run most years since 2014. No workshop is currently announced &mdash;
+            <a href="{{ .RelPermalink }}">past programmes and slides</a> are archived here.
+          {{ end }}
+        </p>
+      </div>
+    </section>
+  </div>
 {{ end }}

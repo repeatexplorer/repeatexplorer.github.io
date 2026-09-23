@@ -1,4 +1,5 @@
 {{ define "main" }}
+  <div class="bar">
   {{ $key := .Params.tool }}
   {{ $tool := index hugo.Data.tools $key }}
   {{ if not $tool }}
@@ -7,6 +8,7 @@
   <article class="tool">
     <header>
       <h1>{{ $tool.name }}</h1>
+      {{ partial "badges.html" (dict "tool" $tool "short" false) }}
       <p class="summary">{{ $tool.summary }}</p>
       {{ if ne $tool.status "active" }}
         <p class="status status-{{ $tool.status }}">Status: {{ $tool.status }}</p>
@@ -75,4 +77,5 @@
 
     {{ partial "citation.html" . }}
   </article>
+  </div>
 {{ end }}

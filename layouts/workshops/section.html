@@ -2,6 +2,7 @@
   {{ if .Params.year }}
     {{ errorf "%s has a `year` but not `layout: workshop`; it will render as an index" .Path }}
   {{ end }}
+  <div class="bar">
   <article class="workshop-index">
     <h1>{{ .Title }}</h1>
     {{ .Content }}
@@ -48,4 +49,5 @@
       </section>
     {{ end }}
   </article>
+</div>
 {{ end }}

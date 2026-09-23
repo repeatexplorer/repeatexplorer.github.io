@@ -1,8 +1,10 @@
 {{/* Workshop subpages: venue, presentations, materials. */}}
 {{ define "main" }}
+  <div class="bar">
   <article class="page">
     <h1>{{ .Title }}</h1>
     {{ .Content }}
     {{ partial "slides.html" . }}
   </article>
+</div>
 {{ end }}

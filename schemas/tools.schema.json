@@ -15,7 +15,8 @@
       "depends_on",
       "protocols",
       "cite",
-      "status"
+      "status",
+      "annotates"
     ],
     "additionalProperties": false,
     "properties": {
@@ -79,6 +80,13 @@
       },
       "cli": {
         "type": "boolean"
+      },
+      "annotates": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1
       }
     }
   }

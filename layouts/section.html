@@ -1,4 +1,5 @@
 {{ define "main" }}
+  <div class="bar">
   <article class="section-index">
     <h1>{{ .Title }}</h1>
     {{ if eq .Section "galaxy-server" }}
@@ -18,4 +19,5 @@
       </ul>
     {{ end }}
   </article>
+</div>
 {{ end }}

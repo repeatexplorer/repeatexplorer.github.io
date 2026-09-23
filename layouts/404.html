@@ -1,5 +1,6 @@
 {{ define "main" }}
   {{ partial "redirect-shim.html" . }}
+  <div class="bar">
   <article class="page">
     <h1>Page not found</h1>
     <p>
@@ -8,4 +9,5 @@
       or the <a href="{{ "/tools/" | relURL }}">tools</a>.
     </p>
   </article>
+</div>
 {{ end }}

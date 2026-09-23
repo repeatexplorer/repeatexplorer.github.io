@@ -3,6 +3,8 @@
 #
 # category : reads | assembly | database
 # status   : active | maintained | legacy
+# annotates: which kinds of sequence the tool reports, as keys into
+#            data/repeat_classes.yml. Drives the class badges.
 # cli      : true when the tool runs as a command-line program on its own. The
 #            page states that it does and links the repository; installation and
 #            usage stay in the README.
@@ -20,6 +22,7 @@ repeatexplorer2:
   repo: https://github.com/kavonrtep/repex_tarean
   galaxy: ["repeatexplorer2"]
   cli: true
+  annotates: [all_repeats]
   inputs: [sequencing reads]
   depends_on: [rexdb]
   protocols: [re2-published-protocols, coverage-and-reproducibility]
@@ -33,6 +36,7 @@ tarean:
   repo: https://github.com/kavonrtep/repex_tarean
   galaxy: ["tarean"]
   cli: true
+  annotates: [tandem]
   inputs: [sequencing reads]
   depends_on: [repeatexplorer2]
   protocols: [re2-published-protocols]
@@ -46,6 +50,7 @@ chipseq_mapper:
   repo: https://github.com/kavonrtep/galaxy_packages
   galaxy: ["chipseq_ratio_analysis"]
   cli: false
+  annotates: [all_repeats]
   inputs: [sequencing reads]
   depends_on: [repeatexplorer2]
   protocols: []
@@ -59,6 +64,7 @@ dante:
   repo: https://github.com/kavonrtep/dante
   galaxy: ["dante"]
   cli: true
+  annotates: [protein_domains]
   inputs: [genome assembly, sequencing reads]
   depends_on: [rexdb]
   protocols: [genome-annotation-galaxy]
@@ -72,6 +78,7 @@ dante_ltr:
   repo: https://github.com/kavonrtep/dante_ltr
   galaxy: ["dante_ltr"]
   cli: true
+  annotates: [ltr]
   inputs: [genome assembly]
   depends_on: [dante, rexdb]
   protocols: [genome-annotation-galaxy]
@@ -85,6 +92,7 @@ dante_tir:
   repo: https://github.com/kavonrtep/dante_tir
   galaxy: ["dante_tir"]
   cli: true
+  annotates: [dna_transposons]
   inputs: [genome assembly]
   depends_on: [dante]
   protocols: []
@@ -98,6 +106,7 @@ tidecluster:
   repo: https://github.com/kavonrtep/TideCluster
   galaxy: ["tidecluster"]
   cli: true
+  annotates: [tandem]
   inputs: [genome assembly]
   depends_on: [tarean]
   protocols: [genome-annotation-galaxy]
@@ -111,6 +120,7 @@ carp:
   repo: https://github.com/kavonrtep/CARP
   galaxy: ["carp"]
   cli: true
+  annotates: [ltr, tandem, dna_transposons]
   inputs: [genome assembly]
   depends_on: [dante, dante_ltr, dante_tir, tidecluster]
   protocols: []
@@ -124,6 +134,7 @@ rexdb:
   repo: https://github.com/repeatexplorer/rexdb
   galaxy: []
   cli: false
+  annotates: [reference]
   inputs: []
   depends_on: []
   protocols: []

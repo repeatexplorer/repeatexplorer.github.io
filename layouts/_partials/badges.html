@@ -1,0 +1,21 @@
+{{/*
+  Class and availability badges for a tool.
+
+  Call with a dict: (dict "tool" $tool "short" true). `short` uses the
+  abbreviated labels, for cards where five badges would otherwise wrap.
+  Class badges come from data/repeat_classes.yml via the tool's `annotates`;
+  availability badges from `galaxy` and `cli`. Nothing here is typed per page.
+*/}}
+{{ $tool := .tool }}
+{{ $short := .short }}
+<p class="badges">
+  {{ range $tool.annotates }}
+    {{ $c := index hugo.Data.repeat_classes . }}
+    {{ if not $c }}{{ errorf "annotates key %q is not in data/repeat_classes.yml" . }}{{ end }}
+    <span class="badge badge-class badge-{{ $c.colour }}">
+      <span class="badge-dot" aria-hidden="true"></span>{{ if $short }}{{ $c.short }}{{ else }}{{ $c.label }}{{ end }}
+    </span>
+  {{ end }}
+  {{ with $tool.galaxy }}<span class="badge badge-galaxy">Galaxy</span>{{ end }}
+  {{ if $tool.cli }}<span class="badge badge-cli">CLI</span>{{ end }}
+</p>

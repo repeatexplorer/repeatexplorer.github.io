@@ -1,11 +1,13 @@
 <footer class="site-footer">
-  <p>
-    {{ site.Title }} is developed at the {{ site.Params.institute }}
-    and is part of the <a href="https://www.elixir-czech.cz/">ELIXIR CZ</a> research infrastructure.
-  </p>
-  <p>
-    <a href="mailto:{{ site.Params.contact_email }}">{{ site.Params.contact_email }}</a>
-    &middot;
-    <a href="https://github.com/repeatexplorer">GitHub</a>
-  </p>
+  <div class="bar">
+    <p>
+      {{ site.Params.institute }}
+      &middot; Part of the <a href="https://www.elixir-czech.cz/">ELIXIR CZ</a> research infrastructure
+    </p>
+    <p>
+      <a href="mailto:{{ site.Params.contact_email }}">{{ site.Params.contact_email }}</a>
+      &middot;
+      <a href="https://github.com/repeatexplorer">GitHub</a>
+    </p>
+  </div>
 </footer>

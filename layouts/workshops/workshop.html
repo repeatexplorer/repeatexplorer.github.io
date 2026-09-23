@@ -6,6 +6,7 @@
   {{ if not .Params.year }}
     {{ errorf "%s uses layout: workshop but has no `year` in front matter" .Path }}
   {{ end }}
+  <div class="bar">
   <article class="workshop">
     <header>
       <h1>{{ .Title }}</h1>
@@ -53,4 +54,5 @@
       </section>
     {{ end }}
   </article>
+</div>
 {{ end }}

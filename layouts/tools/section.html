@@ -4,31 +4,15 @@
       <h1>{{ .Title }}</h1>
       {{ .Content }}
 
-      {{/* Order comes from each page's `weight`, not from the key order in
-           data/tools.yml: ranging over a map sorts alphabetically. */}}
-      {{ $pages := .Pages.ByWeight }}
-      {{ $categories := slice
-          (dict "key" "reads"    "title" "Reads-based" "blurb" "Analyse unassembled sequencing reads, typically low-coverage whole-genome shotgun data.")
-          (dict "key" "assembly" "title" "Assembly-based" "blurb" "Annotate repeats in an assembled genome.")
-          (dict "key" "database" "title" "Databases" "blurb" "Reference data the tools depend on.")
-      }}
-      {{ range $categories }}
-        {{ $cat := .key }}
+      {{/* Groups and their wording come from data/tool_categories.yml, shared
+           with the home page. Card order within a group is the page `weight`:
+           ranging over data/tools.yml would sort alphabetically instead. */}}
+      {{ $pages := .Pages }}
+      {{ range sort hugo.Data.tool_categories "weight" }}
         <section class="tool-category">
           <h2>{{ .title }}</h2>
           <p class="category-blurb">{{ .blurb }}</p>
-          <ul class="cards">
-            {{ range $pages }}
-              {{ $tool := index hugo.Data.tools .Params.tool }}
-              {{ if eq $tool.category $cat }}
-                <li{{ if eq $cat "database" }} class="card-muted"{{ end }}>
-                  <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
-                  {{ partial "badges.html" (dict "tool" $tool "short" true) }}
-                  <p>{{ $tool.summary }}</p>
-                </li>
-              {{ end }}
-            {{ end }}
-          </ul>
+          {{ partial "tool-cards.html" (dict "pages" $pages "category" .key "level" 3) }}
         </section>
       {{ end }}
     </article>

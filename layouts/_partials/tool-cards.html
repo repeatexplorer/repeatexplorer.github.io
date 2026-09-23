@@ -1,0 +1,29 @@
+{{/*
+  One grid of tool cards for a category. Shared by the home page and /tools/,
+  so the two cannot drift apart.
+
+  dict: "pages" (the tool pages), "category" (a key in tool_categories.yml),
+  "level" (3 or 4, so heading order stays valid on whichever page includes it).
+
+  The heading level is written out in full rather than built with printf:
+  html/template refuses a dynamic tag name and silently renders nothing.
+*/}}
+{{ $pages := .pages }}
+{{ $cat := .category }}
+{{ $level := .level | default 3 }}
+<ul class="cards">
+  {{ range $pages.ByWeight }}
+    {{ $tool := index hugo.Data.tools .Params.tool }}
+    {{ if eq $tool.category $cat }}
+      <li{{ if eq $cat "database" }} class="card-muted"{{ end }}>
+        {{ if eq $level 4 }}
+          <h4><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h4>
+        {{ else }}
+          <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
+        {{ end }}
+        {{ partial "badges.html" (dict "tool" $tool "short" true) }}
+        <p>{{ $tool.summary }}</p>
+      </li>
+    {{ end }}
+  {{ end }}
+</ul>

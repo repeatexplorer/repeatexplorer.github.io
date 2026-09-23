@@ -29,39 +29,25 @@
 
     <section class="tool-index">
       <h2>What each tool annotates</h2>
-      {{ $assembly := where (where site.RegularPages "Section" "tools") "Params.tool" "!=" nil }}
-      <ul class="cards">
-        {{ range $assembly.ByWeight }}
-          {{ $tool := index hugo.Data.tools .Params.tool }}
-          {{ if eq $tool.category "assembly" }}
-            <li>
-              <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
-              {{ partial "badges.html" (dict "tool" $tool "short" true) }}
-              <p>{{ $tool.summary }}</p>
-            </li>
-          {{ end }}
-        {{ end }}
-        {{ with site.GetPage "/tools/rexdb" }}
-          {{ $tool := index hugo.Data.tools .Params.tool }}
-          <li class="card-muted">
-            <h3><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h3>
-            {{ partial "badges.html" (dict "tool" $tool "short" true) }}
-            <p>{{ $tool.summary }}</p>
-          </li>
-        {{ end }}
-      </ul>
+      {{ $toolPages := where (where site.RegularPages "Section" "tools") "Params.tool" "!=" nil }}
+      {{/* `sort` works on a data map here; `where` does not. */}}
+      {{ range sort hugo.Data.tool_categories "weight" }}
+        <section class="tool-category">
+          <h3>{{ .title }}</h3>
+          <p class="category-blurb">{{ .blurb }}</p>
+          {{ partial "tool-cards.html" (dict "pages" $toolPages "category" .key "level" 4) }}
+        </section>
+      {{ end }}
     </section>
 
     <section class="split">
       <div>
-        <h3>Working from reads instead?</h3>
+        <h3>Protocols</h3>
         <p>
-          {{ $reads := slice }}
-          {{ range (where (where site.RegularPages "Section" "tools") "Params.tool" "!=" nil).ByWeight }}
-            {{ if eq (index hugo.Data.tools .Params.tool).category "reads" }}{{ $reads = $reads | append . }}{{ end }}
+          {{ with site.GetPage "/protocols" }}
+            Step-by-step guides, from the published protocols for read-based work
+            to the current workflow for <a href="{{ .RelPermalink }}">annotating an assembly</a>.
           {{ end }}
-          {{ range $i, $p := $reads }}{{ if $i }}{{ if eq (add $i 1) (len $reads) }} and {{ else }}, {{ end }}{{ end }}<a href="{{ $p.RelPermalink }}">{{ (index hugo.Data.tools $p.Params.tool).name }}</a>{{ end }}
-          need no assembly &mdash; low-coverage shotgun reads are enough.
         </p>
       </div>
       <div>

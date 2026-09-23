@@ -48,9 +48,15 @@ def main():
     tools = load_yaml(ROOT / 'data' / 'tools.yml')
     pubs = load_yaml(ROOT / 'data' / 'publications.yml') or {}
     classes = load_yaml(ROOT / 'data' / 'repeat_classes.yml') or {}
+    cats = load_yaml(ROOT / 'data' / 'tool_categories.yml') or {}
 
     check_schema(tools, ROOT / 'schemas' / 'tools.schema.json', 'data/tools.yml')
     check_schema(pubs, ROOT / 'schemas' / 'publications.schema.json', 'data/publications.yml')
+
+    for k, c in (cats or {}).items():
+        if c.get('key') != k:
+            err('data/tool_categories.yml', f'{k}: `key` is {c.get("key")!r}, '
+                                            f'which does not match the entry name')
 
     # cross-references inside the data files
     for key, tool in (tools or {}).items():
@@ -65,6 +71,10 @@ def main():
         if not (ROOT / 'content' / 'tools' / slug / 'index.md').exists():
             err('data/tools.yml', f'{key}: no content/tools/{slug}/index.md, so the '
                                   f'tool will not appear in the tools index')
+        if tool.get('category') not in cats:
+            err('data/tools.yml', f'{key}.category: {tool.get("category")!r} is not '
+                                  f'a key in data/tool_categories.yml, so the tool '
+                                  f'appears in no group')
         for cls in tool.get('annotates', []):
             if cls not in classes:
                 err('data/tools.yml', f'{key}.annotates: {cls!r} is not a key in '

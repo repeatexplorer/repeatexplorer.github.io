@@ -1,0 +1,28 @@
+# How the tools are grouped, on the home page and on /tools/. The grouping is
+# by what you start from, because that is the first thing a reader knows about
+# their own data.
+#
+# `key` repeats the map key so templates can match it against a tool's
+# `category`; validate_data.py checks the two agree.
+
+reads:
+  key: reads
+  title: Working from sequencing reads
+  blurb: >-
+    No assembly needed. Low-coverage shotgun reads are enough to find repeat
+    families and estimate how much of the genome each one occupies.
+  weight: 10
+
+assembly:
+  key: assembly
+  title: Working from a genome assembly
+  blurb: >-
+    Annotate repeats along the assembled sequence, then merge the results into
+    one non-overlapping annotation.
+  weight: 20
+
+database:
+  key: database
+  title: Reference data
+  blurb: The protein domain database the annotation tools classify against.
+  weight: 30

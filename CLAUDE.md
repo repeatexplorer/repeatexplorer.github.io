@@ -72,6 +72,23 @@ Deprecated APIs fail the build, because `make check` runs
 `site.Language.Locale`, not `.LanguageCode`; `locale` in hugo.toml, not
 `languageCode`.
 
+## Workshop pages: branch bundles, not leaf bundles
+
+A workshop year page is `content/workshops/<year>/_index.md` with
+`layout: workshop` in its front matter. Both parts are required and
+`validate_data.py` enforces them:
+
+- `_index.md` (branch bundle) so the year can carry subpages such as `venue/` or
+  `presentations/`. Inside a leaf bundle (`index.md`) a nested page becomes a
+  *resource*: it builds without error and is simply never rendered, which is how
+  `/workshops/2025/venue/` shipped as a 404.
+- `layout: workshop` because a branch bundle otherwise renders with
+  `workshops/section.html`, the index template, silently dropping the programme
+  and the facts list.
+
+Use this shape for every year, including years that have no subpages yet, so one
+can be added without restructuring.
+
 ## Content model
 
 | Type | Required front matter | Optional |

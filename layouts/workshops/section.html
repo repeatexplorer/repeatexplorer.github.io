@@ -1,10 +1,13 @@
 {{ define "main" }}
+  {{ if .Params.year }}
+    {{ errorf "%s has a `year` but not `layout: workshop`; it will render as an index" .Path }}
+  {{ end }}
   <article class="workshop-index">
     <h1>{{ .Title }}</h1>
     {{ .Content }}
-    {{ $years := .Pages.ByParam "year" | collections.Reverse }}
+    {{ $years := .Pages.ByParam "year" }}
     <ul class="workshop-list">
-      {{ range $years }}
+      {{ range $years.Reverse }}
         <li>
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
           {{ with .Params.dates }}<span class="dates">{{ . }}</span>{{ end }}

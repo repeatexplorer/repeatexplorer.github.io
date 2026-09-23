@@ -87,6 +87,15 @@ def main():
         if 'workshops/' in str(rel) and fm.get('year') is not None:
             if not isinstance(fm['year'], int):
                 err(rel, f'year must be an integer, got {fm["year"]!r}')
+            # A workshop year page must be a branch bundle so it can carry
+            # subpages (venue/, presentations/). A leaf bundle silently turns
+            # its children into resources: they build, but no page is rendered.
+            if md.name != '_index.md':
+                err(rel, 'workshop year pages must be _index.md (branch bundle), '
+                         'not index.md, or subpages will not be rendered')
+            if fm.get('layout') != 'workshop':
+                err(rel, 'workshop year pages need `layout: workshop`, otherwise '
+                         'Hugo renders them with the section index template')
 
     if errors:
         print(f'{len(errors)} problem(s):', file=sys.stderr)

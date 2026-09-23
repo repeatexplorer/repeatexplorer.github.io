@@ -1,6 +1,7 @@
 ---
 title: RepeatExplorer Workshop 2025
 year: 2025
+layout: workshop
 dates: 26-30 May 2025
 venue: Biology Centre CAS, České Budějovice, Czech Republic
 lecturers: [Jiří Macas, Petr Novák, Pavel Neumann]

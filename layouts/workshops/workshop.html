@@ -1,4 +1,11 @@
 {{ define "main" }}
+  {{/* Year pages are branch bundles (_index.md) so they can carry subpages such
+       as venue/ or presentations/; a leaf bundle cannot have children. Hugo would
+       then render them with workshops/section.html, so they set `layout: workshop`
+       in front matter to reach this template. validate_data.py enforces that. */}}
+  {{ if not .Params.year }}
+    {{ errorf "%s uses layout: workshop but has no `year` in front matter" .Path }}
+  {{ end }}
   <article class="workshop">
     <header>
       <h1>{{ .Title }}</h1>

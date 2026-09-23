@@ -72,6 +72,16 @@ Deprecated APIs fail the build, because `make check` runs
 `site.Language.Locale`, not `.LanguageCode`; `locale` in hugo.toml, not
 `languageCode`.
 
+Three things fail **silently**, with no error and no output, so check the
+rendered HTML rather than trusting the template:
+
+- `where` matches nothing on a data map, though `sort` works on the same map.
+  Filter inside the range instead.
+- A dynamic tag name (`{{ $h := "h4" }}<{{ $h }}>`) renders nothing at all:
+  html/template refuses it. Write each heading level out in full.
+- HTML comments in templates are stripped from the output, so they are useless
+  for debugging. Use a real element.
+
 ## Workshop pages: branch bundles, not leaf bundles
 
 A workshop year page is `content/workshops/<year>/_index.md` with
@@ -126,6 +136,30 @@ Two things to know before touching them:
 Page resources have no size property and `.Content` is text-only, so
 `slides.html` gets file sizes from `os.Stat`.
 
+## The design: badges carry the repeat classes
+
+Two data files drive the look, and neither belongs in a template:
+
+- `data/repeat_classes.yml` is the badge vocabulary. Each tool's `annotates`
+  names its classes; `colour` names a `--class-<name>` custom property defined
+  in `assets/css/site.css`. Adding a class means adding the property too.
+- `data/tool_categories.yml` groups the tools by what you start from, with the
+  heading and blurb used on both the home page and `/tools/`.
+
+`validate_data.py` rejects an unknown class and a tool whose category has no
+group, either of which would make a tool vanish from a page without an error.
+
+Cards come from `layouts/_partials/tool-cards.html`, shared by both pages, so
+they cannot drift. It takes a heading `level`, 4 under the home page's section
+heading and 3 on `/tools/`, to keep heading order valid; the CSS styles both.
+
+Hero text is front matter in `content/_index.md` (`headline`, `accent`, `lead`),
+not markup: rewording the home page should not touch a template.
+
+Fonts are self-hosted in `assets/fonts/`, two variable woff2 files, 48 KB.
+Do not replace them with a Google Fonts link: that sends every visitor's IP
+address to Google, which this site should not do without consent.
+
 ## What the link checker cannot tell you
 
 `lychee` checks status codes. A Galaxy server answers 200 for a shared history
@@ -139,17 +173,25 @@ two protocol histories were removed for exactly this reason. Treat any Galaxy
 | --- | --- | --- |
 | Tool page | `title`, `tool` (key into tools.yml), `weight` | `aliases`, `last_reviewed` |
 | Protocol | `title`, `tools`, `level`, `last_tested` | `aliases`, `data_url` |
-| Workshop | `title`, `year`, `dates`, `venue`, `program` | `materials_url`, `lecturers` |
+| Workshop | `title`, `year`, `layout: workshop`, `start_date`, `end_date` | `venue`, `lecturers`, `program`, `materials_url`, `resources` |
 
 `last_tested` older than 18 months renders a staleness notice automatically; the
 threshold is `protocol_stale_months` in hugo.toml.
 
 ## State of the build
 
-Phase 1 (skeleton) is done: the site builds, the checks run, one worked example
-of each page type exists. Phases 2 and 3 write the content: 28 redirect targets
-are listed in `migration/inventory.csv`, 7 are built.
+Live at <https://repeatexplorer.github.io/>. Every push to `main` builds, checks
+and deploys; the `gh-pages` branch still exists but nothing is served from it.
 
-Deployment is not live yet. `.github/workflows/deploy-pages.yml` will not take
-effect until the repository's Pages source is switched from the `gh-pages`
-branch to "GitHub Actions" in Settings.
+Phases 1 to 3 are done: skeleton, tools, protocols, workshops and the design.
+26 of the 28 redirect targets in `migration/inventory.csv` resolve. The two
+left are `/workshops/2025/materials/` and `/workshops/2025/registration/`;
+`make check-cutover` passes once they exist, which is the phase 4 gate.
+
+Known gaps, all of them content rather than code:
+
+- The 2025 workshop page has no programme. Placeholder text was removed rather
+  than left in place.
+- The genome annotation protocol says `Viridiplantae_v3.0`; REXdb now ships
+  v4.0. Fix belongs upstream in `kavonrtep/protocols`.
+- The phone layout is written but was never verified in a browser.

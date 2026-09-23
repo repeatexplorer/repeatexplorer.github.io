@@ -2,6 +2,12 @@
   <article class="page">
     <h1>{{ .Title }}</h1>
     {{ partial "notices.html" . }}
+    {{ if .Params.toc }}
+      <nav class="toc" aria-label="Contents">
+        <h2>Contents</h2>
+        {{ .TableOfContents }}
+      </nav>
+    {{ end }}
     {{ .Content }}
     {{ partial "citation.html" . }}
   </article>

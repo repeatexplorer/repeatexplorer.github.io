@@ -9,8 +9,12 @@ import pathlib, re, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / 'public'
 # http:// is legitimate inside these: XML namespaces and schema identifiers.
+# http:// is legitimate inside these. XML namespaces and schema identifiers are
+# never fetched. w3lamc.umbr.cas.cz is the institute's own publication server,
+# which serves no https at all; those are hyperlinks in an archived document,
+# not subresources, so they cannot cause mixed content in the browser.
 ALLOW = re.compile(r'http://(www\.w3\.org|purl\.org|schema\.org|wordpress\.org|'
-                   r'localhost|127\.0\.0\.1)')
+                   r'localhost|127\.0\.0\.1|w3lamc\.umbr\.cas\.cz)')
 
 def main():
     hits = []

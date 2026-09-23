@@ -22,7 +22,7 @@ repeatexplorer2:
   cli: true
   inputs: [sequencing reads]
   depends_on: [rexdb]
-  protocols: []
+  protocols: [re2-published-protocols, coverage-and-reproducibility]
   cite: [repeatexplorer2013, natprotocols2020]
   status: active
 
@@ -35,7 +35,7 @@ tarean:
   cli: true
   inputs: [sequencing reads]
   depends_on: [repeatexplorer2]
-  protocols: []
+  protocols: [re2-published-protocols]
   cite: [tarean2017]
   status: active
 
@@ -61,7 +61,7 @@ dante:
   cli: true
   inputs: [genome assembly, sequencing reads]
   depends_on: [rexdb]
-  protocols: []
+  protocols: [genome-annotation-galaxy]
   cite: [dante2024, rexdb2019]
   status: active
 
@@ -74,7 +74,7 @@ dante_ltr:
   cli: true
   inputs: [genome assembly]
   depends_on: [dante, rexdb]
-  protocols: []
+  protocols: [genome-annotation-galaxy]
   cite: [dante2024]
   status: active
 
@@ -100,7 +100,7 @@ tidecluster:
   cli: true
   inputs: [genome assembly]
   depends_on: [tarean]
-  protocols: []
+  protocols: [genome-annotation-galaxy]
   cite: [tidehunter2019, tarean2017]
   status: active
 

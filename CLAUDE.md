@@ -187,6 +187,16 @@ two protocol histories were removed for exactly this reason. Treat any Galaxy
 `last_tested` older than 18 months renders a staleness notice automatically; the
 threshold is `protocol_stale_months` in hugo.toml.
 
+## Project skills
+
+`.claude/skills/` holds the procedures for the recurring jobs: `add-tool`,
+`add-workshop`, `add-publication` and `site-audit`. Each was written after doing
+the task by hand, so it records the traps rather than the ideal. Read the one
+that fits before starting, and update it when a procedure changes.
+
+`migrate-page`, `add-news` and `sync-tool` from the design document are
+deliberately absent; `.claude/skills/README.md` says why.
+
 ## State of the build
 
 Live at <https://repeatexplorer.github.io/>. Every push to `main` builds, checks

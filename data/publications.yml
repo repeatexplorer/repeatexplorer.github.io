@@ -89,3 +89,14 @@ rexdb_zenodo:
   title: "repeatexplorer/rexdb: v1.0"
   journal: "Zenodo"
   doi: 10.5281/zenodo.10160279
+
+graphclust2010:
+  authors:
+    - Novák P.
+    - Neumann P.
+    - Macas J.
+  year: 2010
+  title: "Graph-based clustering and characterization of repetitive sequences in next-generation sequencing data"
+  journal: "BMC Bioinformatics"
+  volume: "11"
+  doi: 10.1186/1471-2105-11-378

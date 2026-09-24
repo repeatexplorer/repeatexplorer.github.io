@@ -26,5 +26,11 @@ line.
 
 ## Acknowledgement
 
-If the server was used for published work, please acknowledge ELIXIR CZ alongside
-the citation for the tool itself, which is listed on each tool's page.
+If the server was used for published work, please add this statement:
+
+> Computational resources for RepeatExplorer analysis were provided by the
+> ELIXIR-CZ project (LM2023055), part of the international ELIXIR
+> infrastructure.
+
+That is separate from citing the tool itself, which each [tool page](/tools/)
+gives, and the [publications page](/publications/) collects.

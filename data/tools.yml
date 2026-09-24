@@ -26,7 +26,7 @@ repeatexplorer2:
   inputs: [sequencing reads]
   depends_on: [rexdb]
   protocols: [re2-published-protocols, coverage-and-reproducibility]
-  cite: [repeatexplorer2013, natprotocols2020]
+  cite: [repeatexplorer2013, natprotocols2020, graphclust2010]
   status: active
 
 tarean:

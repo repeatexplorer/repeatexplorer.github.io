@@ -9,7 +9,10 @@ disableKinds = ["taxonomy", "term", "rss"]
 [params]
   description = "Tools for discovery and annotation of repetitive DNA in plant genomes"
   galaxy_url = "https://repeatexplorer-elixir.cerit-sc.cz/"
-  contact_email = "repeatexplorer@umbr.cas.cz"
+  # The server administrator, as given on the Galaxy welcome page. Do not
+  # invent an address: this one was checked against
+  # github.com/repeatexplorer/repeatexplorer_frontpage
+  contact_email = "regalaxy@rt.cesnet.cz"
   institute = "Institute of Plant Molecular Biology, Biology Centre CAS"
   # Protocols not re-tested within this many months show a staleness notice.
   protocol_stale_months = 18

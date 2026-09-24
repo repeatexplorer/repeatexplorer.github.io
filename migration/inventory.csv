@@ -1,7 +1,7 @@
 old_url,post_type,post_id,wp_status,title,live_http,live_text_chars,outcome_suggested,outcome,target_path,notes
 http://repeatexplorer.org/,page,2,publish,Home,200,7800,rewrite,rewrite,/,
 http://repeatexplorer.org/?page_id=14,page,14,publish,Workshop,200,7868,archive,rewrite,/workshops/,
-http://repeatexplorer.org/?page_id=19,page,19,publish,Registration,200,7168,archive,archive,/workshops/2025/registration/,
+http://repeatexplorer.org/?page_id=19,page,19,publish,Registration,200,7168,archive,drop,/workshops/2025/,Registration is not open; revisit when a workshop is announced
 http://repeatexplorer.org/?page_id=43,page,43,publish,FAQs,200,7688,rewrite,drop,/galaxy-server/,FTP instructions reference the retired repeatexplorer.umbr.cas.cz
 http://repeatexplorer.org/?page_id=46,page,46,publish,Publications,200,7216,rewrite,rewrite,/publications/,Rendered from data/publications.yml; old page was Zotpress from Zotero group 208208
 http://repeatexplorer.org/?page_id=111,page,111,publish,Workshop 2014 programme,200,9317,archive,archive,/workshops/2014/,2014 presentations exist as orphaned uploads; attach them to this year page

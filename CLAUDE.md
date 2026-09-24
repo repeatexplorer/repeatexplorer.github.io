@@ -158,6 +158,13 @@ markup: rewording the home page should not touch a template. The `h1` there is
 the site name itself, so the header bar drops its wordmark on the home page and
 keeps it everywhere else, where it is the link home.
 
+The favicon is RE in Space Grotesk Bold, lime ground, dark letters: a bright
+mark is findable in a tab strip whichever theme the reader uses. The letters are
+outlines, not text, because a favicon cannot rely on a font being installed.
+`scripts/make_favicon.py` regenerates the whole set from the woff2; it needs
+fontTools and Inkscape, which are one-off asset tools and deliberately not in
+environment.yml. Do not hand-edit the files in `static/`.
+
 Fonts are self-hosted in `assets/fonts/`, two variable woff2 files, 48 KB.
 Do not replace them with a Google Fonts link: that sends every visitor's IP
 address to Google, which this site should not do without consent.

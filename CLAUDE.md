@@ -197,20 +197,44 @@ that fits before starting, and update it when a procedure changes.
 `migrate-page`, `add-news` and `sync-tool` from the design document are
 deliberately absent; `.claude/skills/README.md` says why.
 
+## Changes go through a pull request
+
+`main` is protected: a pull request is required, the `check` status must pass,
+and a review from `CODEOWNERS` must approve it. Do not commit to `main`.
+
+    git checkout -b <topic>
+    # edit, then
+    make check
+    git commit && git push -u origin <topic>
+    gh pr create --fill
+
+Admins are not bound by this (bypassing is allowed, so nobody can be locked
+out), which means a direct push would still succeed. Do not use that: the gate
+exists so the checks and the review actually happen.
+
+Only `check` is a required status. `build` and `deploy` come from the deploy
+workflow, which runs on push to `main` and never on a pull request; requiring
+either would leave every pull request waiting forever.
+
 ## State of the build
 
-Live at <https://repeatexplorer.github.io/>. Every push to `main` builds, checks
+Live at <https://repeatexplorer.github.io/>. Merging to `main` builds, checks
 and deploys; the `gh-pages` branch still exists but nothing is served from it.
 
-Phases 1 to 3 are done: skeleton, tools, protocols, workshops and the design.
-26 of the 28 redirect targets in `migration/inventory.csv` resolve. The two
-left are `/workshops/2025/materials/` and `/workshops/2025/registration/`;
-`make check-cutover` passes once they exist, which is the phase 4 gate.
+Phases 1 to 3 are done: skeleton, tools, protocols, workshops, publications,
+about and the design. All 26 redirect targets resolve and `make check-cutover`
+passes, which is the phase 4 gate. Section 11 is built: `.claude/skills/`,
+`CONTRIBUTING.md`, `.github/ISSUE_TEMPLATE/` and `CODEOWNERS`.
+
+What is left is the cut-over itself: DNS, the custom domain, and switching
+WordPress off. The checklist is `cut-over-checklist.md` in the working
+directory above this repository, which is not tracked here.
 
 Known gaps, all of them content rather than code:
 
-- The 2025 workshop page has no programme. Placeholder text was removed rather
-  than left in place.
+- The 2025 workshop page has a programme now, but no venue or lecturers.
 - The genome annotation protocol says `Viridiplantae_v3.0`; REXdb now ships
   v4.0. Fix belongs upstream in `kavonrtep/protocols`.
+- RepeatExplorer2 and ChIP-Seq Mapper both carry an "All" class badge, which
+  reads oddly for ChIP-Seq Mapper.
 - The phone layout is written but was never verified in a browser.

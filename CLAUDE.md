@@ -199,8 +199,11 @@ deliberately absent; `.claude/skills/README.md` says why.
 
 ## Changes go through a pull request
 
-`main` is protected: a pull request is required, the `check` status must pass,
-and a review from `CODEOWNERS` must approve it. Do not commit to `main`.
+`main` is protected: a pull request is required and the `check` status must
+pass. No approval is required, because this is effectively a single-developer
+repository and a PR authored by that developer cannot be approved by them.
+`CODEOWNERS` still requests a review automatically, which matters for a pull
+request from somebody else. Do not commit to `main`.
 
     git checkout -b <topic>
     # edit, then

@@ -184,19 +184,31 @@ main .bar > article, main .bar > section:first-child { padding-top: 2.25rem; }
   gap: 1.1rem; max-width: none; padding: 0; list-style: none;
 }
 .cards > li {
-  padding: 1.1rem 1.25rem;
-  background: var(--ground);
+  padding: 1.25rem 1.4rem;
+  background: var(--ground-soft);
   border: 1px solid var(--rule);
-  border-radius: 8px;
+  border-radius: 10px;
+  transition: border-color 0.12s ease, transform 0.12s ease;
 }
-.cards > li.card-muted { background: var(--ground-soft); }
+.cards > li:hover { border-color: var(--ink-soft); transform: translateY(-1px); }
+
+/* Tinted by category, which is how the cards are already grouped, so the
+   colour reinforces the grouping rather than adding a second meaning. The
+   badges carry repeat class; the card does not. Tints are pale enough that
+   --ink-soft body text stays well above 4.5:1. */
+.cards > li.card-reads { background: #F7FBE9; border-color: #E4F0C3; }
+.cards > li.card-reads:hover { border-color: #A8C75A; }
+.cards > li.card-assembly { background: #F0F7F2; border-color: #D4E7D9; }
+.cards > li.card-assembly:hover { border-color: #6FA57D; }
+.cards > li.card-database { background: #F3F4F1; border-color: #DEE2DA; }
+.cards > li.card-database:hover { border-color: var(--muted); }
 /* card titles are h3 on /tools/ and h4 on the home page, where they sit under
    a section heading; both must look the same */
-.cards h3, .cards h4 { margin: 0 0 0.6rem; font-size: 1.18rem; font-family: var(--display); font-weight: 700; }
+.cards h3, .cards h4 { margin: 0 0 0.65rem; font-size: 1.25rem; font-family: var(--display); font-weight: 700; letter-spacing: -0.02em; }
 .cards h3 a, .cards h4 a { color: var(--ink); text-decoration: none; }
 .cards h3 a:hover, .cards h4 a:hover,
 .cards h3 a:focus, .cards h4 a:focus { color: var(--link); text-decoration: underline; }
-.cards p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); }
+.cards p { margin: 0; font-size: 0.93rem; line-height: 1.55; color: var(--ink-soft); }
 
 .category-blurb { color: var(--ink-soft); }
 

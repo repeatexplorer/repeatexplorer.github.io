@@ -30,6 +30,12 @@ link check and a scan for insecure `http://` links.
     scripts/        redirect generation and the check scripts
     migration/      inventory of old WordPress URLs and where each one now points
 
+## Contributing
+
+`CONTRIBUTING.md` covers both routes: opening an issue with one of the templates
+in `.github/ISSUE_TEMPLATE/`, whose fields match the data schemas, or making the
+change and opening a pull request.
+
 ## Editing
 
 Facts live in `data/*.yml` and are rendered by templates. To change a tool's

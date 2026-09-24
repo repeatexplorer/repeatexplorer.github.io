@@ -1,0 +1,35 @@
+name: Content correction
+description: Something on the website is wrong, out of date or unclear
+labels: [content]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Page
+      description: The address of the page, or its path in the repository
+      placeholder: https://repeatexplorer.org/tools/dante/
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong
+      description: Quote the text as it stands, if it is a wording problem
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What it should say
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: >-
+        Where the correct version comes from: a DOI, a repository, a release
+        note. Claims about versions, dates and citations are only changed
+        against a source.
+    validations:
+      required: false

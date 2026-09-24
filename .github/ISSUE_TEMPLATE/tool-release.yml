@@ -1,0 +1,31 @@
+name: Tool release or change
+description: A tool changed in a way the website should reflect
+labels: [tool]
+body:
+  - type: input
+    id: tool
+    attributes:
+      label: Tool
+      placeholder: TideCluster
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What changed
+      description: >-
+        The website says what a tool is for and what it outputs, not how to run
+        it. A release only needs a page change when the scope, the inputs or
+        the outputs changed, or when it gained a paper or a Galaxy tool.
+    validations:
+      required: true
+  - type: checkboxes
+    id: affects
+    attributes:
+      label: What does it affect
+      options:
+        - label: What the tool is for, or what it outputs
+        - label: Availability on the Galaxy server
+        - label: Availability as a command-line program
+        - label: The citation
+        - label: Nothing on the page; this is for the record

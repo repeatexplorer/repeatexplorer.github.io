@@ -1,0 +1,71 @@
+name: Add a tool
+description: A tool should appear on the website
+labels: [tool]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        These fields are the entry in `data/tools.yml`. Filling them in means
+        the change can be made without a second round of questions.
+  - type: input
+    id: name
+    attributes:
+      label: Tool name
+      description: Spelled as it should appear, including underscores
+      placeholder: DANTE_TIR
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Repository
+      placeholder: https://github.com/kavonrtep/dante_tir
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: One-line summary
+      description: What it does, under 200 characters, no marketing wording
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: What does it start from
+      options:
+        - Sequencing reads
+        - A genome assembly
+        - It is reference data, not a program
+    validations:
+      required: true
+  - type: checkboxes
+    id: availability
+    attributes:
+      label: How can it be run
+      options:
+        - label: On the RepeatExplorer Galaxy server
+        - label: As a command-line program
+  - type: input
+    id: annotates
+    attributes:
+      label: What does it report
+      description: >-
+        LTR retrotransposons, tandem repeats, DNA transposons, protein domains,
+        reference data, or all repeat classes
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: One line per file or artefact, naming the format
+    validations:
+      required: true
+  - type: input
+    id: doi
+    attributes:
+      label: Citation DOI
+      description: Leave empty if there is no paper yet
+    validations:
+      required: false

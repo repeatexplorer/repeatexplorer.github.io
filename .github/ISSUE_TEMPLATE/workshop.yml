@@ -1,0 +1,52 @@
+name: Add or update a workshop
+description: A new workshop, or a correction to an archived one
+labels: [workshop]
+body:
+  - type: input
+    id: year
+    attributes:
+      label: Year
+      placeholder: "2026"
+    validations:
+      required: true
+  - type: input
+    id: dates
+    attributes:
+      label: Start and end date
+      description: As YYYY-MM-DD, covering the whole workshop including any online part
+      placeholder: 2026-05-26 to 2026-05-28
+    validations:
+      required: true
+  - type: input
+    id: venue
+    attributes:
+      label: Venue
+      description: Leave empty if the workshop is held online
+    validations:
+      required: false
+  - type: input
+    id: lecturers
+    attributes:
+      label: Lecturers
+      placeholder: Jiří Macas, Petr Novák, Pavel Neumann
+    validations:
+      required: false
+  - type: textarea
+    id: programme
+    attributes:
+      label: Programme
+      description: >-
+        One line per session, as "day, time, title, speaker". Sub-topics of a
+        session can be listed underneath. Paste it in whatever form you have;
+        it will be converted.
+    validations:
+      required: false
+  - type: input
+    id: materials
+    attributes:
+      label: Training materials
+      description: >-
+        Materials live in github.com/repeatexplorer/workshop, not on the
+        website. Give the path there if it differs from the year folder.
+    validations:
+      required: false

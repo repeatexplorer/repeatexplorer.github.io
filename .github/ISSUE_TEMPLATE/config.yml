@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Problem with the Galaxy server
+    url: mailto:regalaxy@rt.cesnet.cz
+    about: Job failures, data quotas and server access are handled by the server administrator, not here.
+  - name: Bug in a tool
+    url: https://github.com/kavonrtep
+    about: Report it in that tool's own repository. This repository is only the website.

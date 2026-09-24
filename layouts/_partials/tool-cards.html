@@ -15,7 +15,7 @@
   {{ range $pages.ByWeight }}
     {{ $tool := index hugo.Data.tools .Params.tool }}
     {{ if eq $tool.category $cat }}
-      <li{{ if eq $cat "database" }} class="card-muted"{{ end }}>
+      <li class="card-{{ $cat }}">
         {{ if eq $level 4 }}
           <h4><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></h4>
         {{ else }}

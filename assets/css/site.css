@@ -103,9 +103,13 @@ main .bar > article, main .bar > section:first-child { padding-top: 2.25rem; }
 }
 
 .site-title {
-  font-family: var(--display); font-size: 1.32rem; font-weight: 700;
-  color: #FFFFFF; text-decoration: none; letter-spacing: -0.02em;
+  font-family: var(--display); font-size: 1.5rem; font-weight: 700;
+  color: #FFFFFF; text-decoration: none; letter-spacing: -0.025em;
 }
+
+/* The home page has no wordmark in the bar: it is the hero's h1. Without a
+   first item the nav would otherwise sit flush left against the gutter. */
+.site-header-home .bar { padding-top: 1rem; padding-bottom: 1rem; }
 
 .site-header nav { flex-grow: 1; }
 .site-header nav ul {
@@ -126,12 +130,17 @@ main .bar > article, main .bar > section:first-child { padding-top: 2.25rem; }
 
 /* ---------- hero ---------- */
 
-.hero { background: var(--dark); color: #FFFFFF; padding-bottom: 1.6rem; }
-.hero h1 { font-size: 3.4rem; max-width: 52rem; letter-spacing: -0.032em; }
+.hero { background: var(--dark); color: #FFFFFF; padding: 0.4rem 0 1.6rem; }
+.hero h1 { font-size: 4rem; line-height: 1; letter-spacing: -0.038em; margin: 0 0 0.6rem; }
+.hero .tagline {
+  font-family: var(--display); font-size: 1.5rem; font-weight: 500;
+  line-height: 1.25; letter-spacing: -0.015em; color: var(--accent);
+  max-width: 44rem; margin: 0 0 0.5rem;
+}
 .hero .accent { color: var(--accent); }
 .hero .lead {
-  font-size: 1.12rem; line-height: 1.55; color: #C8CFCA;
-  max-width: 40rem; margin: 0 0 1.4rem;
+  font-size: 1rem; line-height: 1.55; color: #C8CFCA;
+  max-width: 38rem; margin: 0 0 1.4rem;
 }
 
 .track { display: block; width: 100%; height: 22px; margin-bottom: 0.9rem; }
@@ -295,6 +304,8 @@ th, td { padding: 0.35rem 0.75rem; border-bottom: 1px solid var(--rule); text-al
 @media (max-width: 48rem) {
   :root { --gutter: 1.25rem; }
   h1 { font-size: 2rem; }
-  .hero h1 { font-size: 2.2rem; }
+  .hero h1 { font-size: 2.5rem; }
+  .hero .tagline { font-size: 1.2rem; }
+  .site-title { font-size: 1.3rem; }
   .tool h1 { font-size: 2.1rem; }
 }

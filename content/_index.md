@@ -1,9 +1,8 @@
 ---
 title: RepeatExplorer
-# The hero. `accent` is the tail of the headline, shown in the accent colour;
-# leave it empty for a headline with no highlight.
-headline: Most of a plant genome is
-accent: repetitive
+# The hero: the site name is the heading, `tagline` the line under it, `lead`
+# the paragraph under that.
+tagline: Most of a plant genome is repetitive
 lead: >-
   These tools identify repeats, classify them and estimate their abundance,
   either from low-coverage sequencing reads or from an assembled genome.

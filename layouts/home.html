@@ -3,12 +3,14 @@
 
   <div class="hero">
     <div class="bar">
-      {{/* Hero text lives in content/_index.md front matter, not here: it is
+      {{/* The site name is the h1 here, and the bar drops its wordmark to match.
+           Hero text lives in content/_index.md front matter, not here: it is
            content, and a wording change should not be a template change. */}}
-      {{ with .Params.headline }}
-        <h1>{{ . }}{{ with $.Params.accent }} <span class="accent">{{ . }}</span>{{ end }}</h1>
+      <h1>{{ site.Title }}</h1>
+      {{ with .Params.tagline }}
+        <p class="tagline">{{ . }}</p>
       {{ else }}
-        {{ errorf "content/_index.md needs a `headline` in front matter" }}
+        {{ errorf "content/_index.md needs a `tagline` in front matter" }}
       {{ end }}
       {{ with .Params.lead }}<p class="lead">{{ . }}</p>{{ end }}
       {{ partial "track.html" . }}

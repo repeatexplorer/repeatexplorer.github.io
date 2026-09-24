@@ -153,8 +153,10 @@ Cards come from `layouts/_partials/tool-cards.html`, shared by both pages, so
 they cannot drift. It takes a heading `level`, 4 under the home page's section
 heading and 3 on `/tools/`, to keep heading order valid; the CSS styles both.
 
-Hero text is front matter in `content/_index.md` (`headline`, `accent`, `lead`),
-not markup: rewording the home page should not touch a template.
+Hero text is front matter in `content/_index.md` (`tagline`, `lead`), not
+markup: rewording the home page should not touch a template. The `h1` there is
+the site name itself, so the header bar drops its wordmark on the home page and
+keeps it everywhere else, where it is the link home.
 
 Fonts are self-hosted in `assets/fonts/`, two variable woff2 files, 48 KB.
 Do not replace them with a Google Fonts link: that sends every visitor's IP

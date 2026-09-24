@@ -1,7 +1,11 @@
 <a class="skip-link" href="#content">Skip to content</a>
-<header class="site-header">
+<header class="site-header{{ if .IsHome }} site-header-home{{ end }}">
   <div class="bar">
-    <a class="site-title" href="{{ "/" | relURL }}">RepeatExplorer</a>
+    {{/* On the home page the wordmark is the hero's h1, so the bar carries only
+         the navigation. Everywhere else it stays here, and is the link home. */}}
+    {{ if not .IsHome }}
+      <a class="site-title" href="{{ "/" | relURL }}">RepeatExplorer</a>
+    {{ end }}
     <nav aria-label="Main">
       <ul>
         {{ $current := . }}

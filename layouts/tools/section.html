@@ -10,7 +10,7 @@
       {{ $pages := .Pages }}
       {{ range sort hugo.Data.tool_categories "weight" }}
         <section class="tool-category">
-          <h2>{{ .title }}</h2>
+          <h2 class="cat-heading">{{ partial "category-icon.html" .key }}{{ .title }}</h2>
           <p class="category-blurb">{{ .blurb }}</p>
           {{ partial "tool-cards.html" (dict "pages" $pages "category" .key "level" 3) }}
         </section>

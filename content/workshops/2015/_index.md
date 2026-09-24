@@ -108,4 +108,8 @@ program:
     - advanced topics (filtering of satellite repeat reads before clustering; detection of telomeric and
       other simple repeats in NGS reads, k-mer analysis of satellite repeats)
     - troubleshooting
+lecturers:
+- Jiří Macas
+- Petr Novák
+- Pavel Neumann
 ---

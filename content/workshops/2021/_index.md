@@ -23,7 +23,11 @@ program:
     items:
     - Opening the workshop & instructions (J. Macas)
     - RepeatExplorer pipeline and associated tools (P. Novak)
-    - RepeatExplorer applications (J. Macas) break
+    - RepeatExplorer applications (J. Macas)
+    - break
+    - REXdb database and DANTE (P. Neumann)
+    - Using RE output for repeat annotation and quantification (J. Macas)
+    - Practical training I – assignment of tasks (P. Novak)
 - day: May 25 – May 31
   sessions:
   - time: ''
@@ -139,4 +143,8 @@ program:
     title: Troubleshooting and discussion related to practical training III
     items:
     - based on the questions posted to Slack or presented during the session
+lecturers:
+- Jiří Macas
+- Petr Novák
+- Pavel Neumann
 ---

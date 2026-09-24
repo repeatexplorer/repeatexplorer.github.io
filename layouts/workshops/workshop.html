@@ -19,6 +19,7 @@
 
     {{ .Content }}
 
+    {{ $page := . }}
     {{ with .Params.program }}
       <section class="programme">
         <h2>Programme</h2>
@@ -28,9 +29,29 @@
             {{ range .sessions }}
               <li>
                 {{ with .time }}<span class="time">{{ . }}</span>{{ end }}
-                <span class="session-title">{{ .title }}</span>
-                {{ with .speaker }}<span class="speaker">{{ . }}</span>{{ end }}
-                {{ with .slides }}<a class="slides" href="{{ . }}">slides</a>{{ end }}
+                <span class="session-title">
+                  {{ .title }}
+                  {{ with .speaker }}<span class="speaker">{{ . }}</span>{{ end }}
+                  {{/* A cell often held a heading plus a list of sub-topics. */}}
+                  {{ with .items }}
+                    <ul class="session-items">
+                      {{ range . }}<li>{{ . }}</li>{{ end }}
+                    </ul>
+                  {{ end }}
+                </span>
+                {{/* `slides` is a file name; link it only if that PDF is really
+                     a resource of this page or one of its subpages, so a
+                     renamed file never becomes a dead link. */}}
+                {{ $name := .slides }}
+                {{ with $name }}
+                  {{ $res := $page.Resources.GetMatch $name }}
+                  {{ if not $res }}
+                    {{ range $page.Pages }}
+                      {{ with .Resources.GetMatch $name }}{{ $res = . }}{{ end }}
+                    {{ end }}
+                  {{ end }}
+                  {{ with $res }}<a class="slides" href="{{ .RelPermalink }}">slides</a>{{ end }}
+                {{ end }}
               </li>
             {{ end }}
           </ul>

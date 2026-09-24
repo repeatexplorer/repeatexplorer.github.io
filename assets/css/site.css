@@ -324,3 +324,8 @@ th, td { padding: 0.35rem 0.75rem; border-bottom: 1px solid var(--rule); text-al
   .cite-map { grid-template-columns: 1fr; gap: 0.15rem; }
   .cite-map dd { margin-bottom: 0.6rem; }
 }
+
+.session-items { margin: 0.3rem 0 0; padding-left: 1.05rem; font-size: 0.92rem; color: var(--ink-soft); max-width: none; }
+.session-items li { margin-bottom: 0.15rem; }
+.sessions .speaker { display: inline; margin-left: 0.4rem; }
+.sessions .session-title { display: block; }

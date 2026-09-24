@@ -1,30 +1,45 @@
 {{/*
-  A small mark for each tool category, shown beside its heading.
+  A mark for each tool category, shown beside its heading.
 
   Takes the category key. Drawn in currentColor so the CSS decides the colour
   per category, and aria-hidden because the heading beside it already says what
-  it is. Kept to a handful of shapes so it survives at 24px.
+  it is. Checked by rendering at the size it is actually used, not enlarged.
 */}}
 {{ $cat := . }}
 <svg class="cat-icon cat-{{ $cat }}" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
   {{ if eq $cat "reads" }}
-    {{/* a pile of sequencing reads, staggered as in a genome browser */}}
-    <rect x="1.5" y="4" width="10" height="2.6" rx="1.3" fill="currentColor"/>
-    <rect x="8" y="8.2" width="14" height="2.6" rx="1.3" fill="currentColor"/>
-    <rect x="3" y="12.4" width="9" height="2.6" rx="1.3" fill="currentColor"/>
-    <rect x="10.5" y="16.6" width="11" height="2.6" rx="1.3" fill="currentColor"/>
+    {{/* a pileup of short reads, staggered as in a genome browser */}}
+    <g fill="currentColor">
+      <rect x="1.6" y="2.4" width="9" height="2.1" rx="1.05"/>
+      <rect x="12" y="2.4" width="6.5" height="2.1" rx="1.05"/>
+      <rect x="6" y="6.2" width="12" height="2.1" rx="1.05"/>
+      <rect x="19.2" y="6.2" width="3.2" height="2.1" rx="1.05"/>
+      <rect x="1.6" y="10" width="7.5" height="2.1" rx="1.05"/>
+      <rect x="10.6" y="10" width="10" height="2.1" rx="1.05"/>
+      <rect x="4" y="13.8" width="11" height="2.1" rx="1.05"/>
+      <rect x="16.5" y="13.8" width="5.9" height="2.1" rx="1.05"/>
+      <rect x="1.6" y="17.6" width="5.5" height="2.1" rx="1.05"/>
+      <rect x="8.6" y="17.6" width="12" height="2.1" rx="1.05"/>
+      <rect x="3.2" y="21.4" width="9.5" height="2.1" rx="1.05"/>
+      <rect x="14.2" y="21.4" width="7" height="2.1" rx="1.05"/>
+    </g>
   {{ else if eq $cat "assembly" }}
-    {{/* features annotated along one continuous assembled sequence */}}
-    <rect x="3.5" y="4.6" width="6" height="2.8" rx="1.4" fill="currentColor"/>
-    <rect x="11.5" y="4.6" width="3.5" height="2.8" rx="1.4" fill="currentColor"/>
-    <rect x="17" y="4.6" width="4" height="2.8" rx="1.4" fill="currentColor"/>
-    <rect x="1.5" y="10.4" width="21" height="3.6" rx="1.8" fill="currentColor"/>
-    <rect x="5" y="17" width="4.5" height="2.8" rx="1.4" fill="currentColor"/>
-    <rect x="12" y="17" width="7" height="2.8" rx="1.4" fill="currentColor"/>
+    {{/* three chromosomes, each drawn as two arms about a centromere */}}
+    <g fill="currentColor">
+      <rect x="2.2" y="2.6" width="3.6" height="6.2" rx="1.8"/>
+      <rect x="2.2" y="10.2" width="3.6" height="11.2" rx="1.8"/>
+      <rect x="10.2" y="4.6" width="3.6" height="5" rx="1.8"/>
+      <rect x="10.2" y="11" width="3.6" height="8.4" rx="1.8"/>
+      <rect x="18.2" y="1.8" width="3.6" height="7.4" rx="1.8"/>
+      <rect x="18.2" y="10.6" width="3.6" height="11.6" rx="1.8"/>
+    </g>
   {{ else }}
-    {{/* a database */}}
-    <ellipse cx="12" cy="5.8" rx="7.8" ry="2.9" fill="currentColor"/>
-    <path d="M4.2 9.2v4.3c0 1.6 3.5 2.9 7.8 2.9s7.8-1.3 7.8-2.9V9.2c0 1.6-3.5 2.9-7.8 2.9S4.2 10.8 4.2 9.2z" fill="currentColor"/>
-    <path d="M4.2 15.5v2.7c0 1.6 3.5 2.9 7.8 2.9s7.8-1.3 7.8-2.9v-2.7c0 1.6-3.5 2.9-7.8 2.9s-7.8-1.3-7.8-2.9z" fill="currentColor"/>
+    {{/* a database: solid top disc, drawn body, tiers marked */}}
+    <ellipse cx="12" cy="4.4" rx="9" ry="3.2" fill="currentColor"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+      <path d="M3 4.4v15.2c0 1.77 4.03 3.2 9 3.2s9-1.43 9-3.2V4.4"/>
+      <path d="M3 9.8c0 1.77 4.03 3.2 9 3.2s9-1.43 9-3.2"/>
+      <path d="M3 14.9c0 1.77 4.03 3.2 9 3.2s9-1.43 9-3.2"/>
+    </g>
   {{ end }}
 </svg>

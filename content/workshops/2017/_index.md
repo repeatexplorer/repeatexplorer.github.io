@@ -95,4 +95,9 @@ program:
     - identification and phylogenetic analysis of retrotransposon protein domains
     - SeqGrapheR – visualization and annotation of the cluster graphs
     - advanced topics, troubleshooting
+lecturers:
+- Jiří Macas
+- Petr Novák
+- Pavel Neumann
+- N. Hoštáková
 ---

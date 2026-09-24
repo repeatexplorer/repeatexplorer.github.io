@@ -94,4 +94,8 @@ program:
     - local installation and running RE tools from a command line
     - topics proposed by the participants & individual consultations
 materials_url: https://github.com/repeatexplorer/workshop
+lecturers:
+- Jiří Macas
+- Pavel Neumann
+- Petr Novák
 ---

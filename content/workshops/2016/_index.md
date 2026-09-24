@@ -112,4 +112,8 @@ program:
     - 'NEW TOOL: automated identification and characterization of satellite repeats (incl. probe design)'
     - 'NEW TOOL: evaluation of ChIP-seq data'
     - advanced topics, troubleshooting
+lecturers:
+- Jiří Macas
+- Petr Novák
+- Pavel Neumann
 ---

@@ -92,4 +92,9 @@ program:
     - identification and phylogenetic analysis of retrotransposon protein domains
     - Assembly annotation
     - advanced topics, troubleshooting
+lecturers:
+- Jiří Macas
+- Petr Novák
+- Pavel Neumann
+- N. Hoštáková
 ---

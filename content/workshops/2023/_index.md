@@ -88,4 +88,8 @@ program:
     - REPET pipeline (Johann Confais, URGI INRAE, France)
     - (+ topics proposed by the participants & individual consultations)
 materials_url: https://github.com/repeatexplorer/workshop
+lecturers:
+- Jiří Macas
+- Pavel Neumann
+- Petr Novák
 ---

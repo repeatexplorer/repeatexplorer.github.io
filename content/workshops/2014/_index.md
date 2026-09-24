@@ -105,4 +105,8 @@ program:
     - comparative analysis of multiple genomes (study and analysis design, controls, evaluation of results,
       phylogenetic analysis of retroelements, etc.)
     - probe design based on k-mer analysis of satellite repeats
+lecturers:
+- Jiří Macas
+- Petr Novák
+- Pavel Neumann
 ---

@@ -28,7 +28,9 @@
           <ul class="sessions">
             {{ range .sessions }}
               <li>
-                {{ with .time }}<span class="time">{{ . }}</span>{{ end }}
+                {{/* always emit the cell: without it the title falls into the
+                     narrow time column and wraps one word per line */}}
+                <span class="time">{{ .time }}</span>
                 <span class="session-title">
                   {{ .title }}
                   {{ with .speaker }}<span class="speaker">{{ . }}</span>{{ end }}

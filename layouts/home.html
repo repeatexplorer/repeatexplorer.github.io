@@ -35,7 +35,7 @@
       {{/* `sort` works on a data map here; `where` does not. */}}
       {{ range sort hugo.Data.tool_categories "weight" }}
         <section class="tool-category">
-          <h3>{{ .title }}</h3>
+          <h3 class="cat-heading">{{ partial "category-icon.html" .key }}{{ .title }}</h3>
           <p class="category-blurb">{{ .blurb }}</p>
           {{ partial "tool-cards.html" (dict "pages" $toolPages "category" .key "level" 4) }}
         </section>

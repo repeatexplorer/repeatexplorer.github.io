@@ -42,7 +42,9 @@ carp:
   status: active
 ```
 
-`annotates` decides the class badges. If the tool does not fit the existing
+`annotates` may be empty, for a tool that reports no repeat class of its own:
+ChIP-Seq Mapper ranks clusters by ChIP enrichment, so its card shows only the
+availability badge. Otherwise `annotates` decides the class badges. If the tool does not fit the existing
 vocabulary, do not invent a colour: add the class to `data/repeat_classes.yml`
 **and** a `--class-<name>` custom property in `assets/css/site.css`, or use
 `protein_domains` / `reference` / `all_repeats`.

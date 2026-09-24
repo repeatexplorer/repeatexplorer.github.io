@@ -81,8 +81,10 @@ natprotocols2020:
   doi: 10.1038/s41596-020-0400-y
 
 rexdb_zenodo:
+  # Zenodo gives the depositor's name as a literal string; normalised to the
+  # same "Family I." form as every other entry so short citations work.
   authors:
-    - Petr Novak
+    - Novák P.
   year: 2023
   title: "repeatexplorer/rexdb: v1.0"
   journal: "Zenodo"

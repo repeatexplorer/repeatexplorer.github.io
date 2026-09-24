@@ -9,12 +9,7 @@
     <ul>
       {{ range . }}
         {{ with index hugo.Data.publications . }}
-          <li>
-            {{ delimit .authors ", " }} ({{ .year }})
-            {{ .title }}.
-            <em>{{ .journal }}</em>{{ with .volume }} {{ . }}{{ end }}{{ with .pages }}: {{ . }}{{ end }}.
-            <a href="https://doi.org/{{ .doi }}">doi:{{ .doi }}</a>
-          </li>
+          <li>{{ partial "reference.html" . }}</li>
         {{ else }}
           {{ errorf "citation key %q is not in data/publications.yml (page %s)" . $.Path }}
         {{ end }}

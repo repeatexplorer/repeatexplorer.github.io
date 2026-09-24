@@ -1,0 +1,10 @@
+{{/*
+  One formatted reference. The single place a citation is laid out: the tool
+  pages and /publications/ both call this, so they cannot format differently.
+  Takes the publication map from data/publications.yml.
+*/}}
+{{ $p := . }}
+{{ delimit $p.authors ", " }} ({{ $p.year }})
+{{ $p.title }}.
+<em>{{ $p.journal }}</em>{{ with $p.volume }} {{ . }}{{ end }}{{ with $p.pages }}: {{ . }}{{ end }}.
+<a href="https://doi.org/{{ $p.doi }}">doi:{{ $p.doi }}</a>{{ with $p.note }} {{ . }}{{ end }}

@@ -53,6 +53,16 @@ def main():
     check_schema(tools, ROOT / 'schemas' / 'tools.schema.json', 'data/tools.yml')
     check_schema(pubs, ROOT / 'schemas' / 'publications.schema.json', 'data/publications.yml')
 
+    # authors are stored "Family I." so a short citation can take the first
+    # token. A literal name from a DOI record (Zenodo gives these) would
+    # silently render as the given name instead.
+    for key, pub in (pubs or {}).items():
+        for a in pub.get('authors', []):
+            if not a.rstrip().endswith('.'):
+                err('data/publications.yml',
+                    f'{key}.authors: {a!r} is not in "Family I." form, so the '
+                    f'short citation would use the wrong name')
+
     for k, c in (cats or {}).items():
         if c.get('key') != k:
             err('data/tool_categories.yml', f'{k}: `key` is {c.get("key")!r}, '

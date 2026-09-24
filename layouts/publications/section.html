@@ -1,0 +1,41 @@
+{{ define "main" }}
+  <div class="bar">
+    <article class="publications">
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+
+      <section>
+        <h2>Which paper to cite</h2>
+        <p>Cite the paper for the tool you used. A tool with no paper is marked as such.</p>
+        <dl class="cite-map">
+          {{ $toolPages := where (where site.RegularPages "Section" "tools") "Params.tool" "!=" nil }}
+          {{ range $toolPages.ByWeight }}
+            {{ $tool := index hugo.Data.tools .Params.tool }}
+            <dt><a href="{{ .RelPermalink }}">{{ $tool.name }}</a></dt>
+            <dd>
+              {{ with $tool.cite }}
+                {{ range $i, $k := . }}{{ if $i }}; {{ end }}
+                  {{- with index hugo.Data.publications $k -}}
+                    {{ index (split (index .authors 0) " ") 0 }}{{ if gt (len .authors) 1 }} et al.{{ end }} {{ .year }}
+                  {{- end -}}
+                {{ end }}
+              {{ else }}
+                <span class="muted">No publication yet; cite the repository.</span>
+              {{ end }}
+            </dd>
+          {{ end }}
+        </dl>
+      </section>
+
+      <section>
+        <h2>References</h2>
+        <ul class="reference-list">
+          {{/* `sort` works on a data map here; `where` does not. */}}
+          {{ range sort hugo.Data.publications "year" "desc" }}
+            <li>{{ partial "reference.html" . }}</li>
+          {{ end }}
+        </ul>
+      </section>
+    </article>
+  </div>
+{{ end }}

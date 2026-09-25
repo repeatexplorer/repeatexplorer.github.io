@@ -22,8 +22,8 @@ link check and a scan for insecure `http://` links.
 ## Layout
 
     content/        pages, as Markdown page bundles
-    data/           tool metadata, publications, people; the single source for
-                    facts that appear on more than one page
+    data/           tool metadata, publications, repeat classes; the single
+                    source for facts that appear on more than one page
     layouts/        the theme, owned by this repo
     assets/css/     one stylesheet
     schemas/        JSON Schema for the data files
